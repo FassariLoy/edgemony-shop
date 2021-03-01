@@ -1,0 +1,15 @@
+.divHeader {
+  /*position: fixed;*/
+  width: 100%;
+  border: 2px solid red;
+}
+
+.divImgHeader {
+  /*width: 20%;*/
+  border: 2px solid blue;
+}
+
+.imgHeader {
+  width: 30%;
+  border: 2px solid green;
+}

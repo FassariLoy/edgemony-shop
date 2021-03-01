@@ -1,0 +1,33 @@
+.divHero {
+  margin: 5%;
+  width: 90%;
+  border: 2px solid red;
+}
+
+.h1Hero {
+  text-align: center;
+}
+
+.h2Hero {
+  text-align: center;
+}
+
+.divImgHero {
+  /*position: relative;*/
+  width: 100%;
+}
+
+.imgHero {
+  /*position: absolute;*/
+  max-width: 100%;
+  /*size: 100%;*/
+}
+
+@media (max-width: 630px) {
+
+  .h2Hero {
+    display: none;
+  }
+  
+
+}

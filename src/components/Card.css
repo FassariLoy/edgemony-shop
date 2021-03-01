@@ -1,0 +1,27 @@
+.divCard {
+  display: flex;
+  padding: 5px;
+  border-radius: 10px;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+  border: 2px solid yellow;
+  /*border: 2px solid red;*/
+}
+
+.divCardMulti {
+  /*background-color: var(--backgroundHard);*/
+  background-color: white;
+  border-radius: 5px;
+  min-width: 200px;
+  max-width: 200px;
+  height: 300px;
+  margin: 5px;
+  /*border: 2px solid blue;*/
+}
+
+.imgCard {
+  max-width: 150px;
+  max-height: 150px;
+  margin: 20px 0 0 0;
+  /*background-color: var(--backgroundHard);*/
+}
