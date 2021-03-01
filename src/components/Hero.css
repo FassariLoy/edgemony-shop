@@ -1,0 +1,43 @@
+.divHero {
+  margin: 0% 5%;
+  width: 90%;
+/*  border: 2px solid red;*/
+}
+
+.divh1h2Hero {
+  background-color: var(--backgroundHard);
+  border-radius: 10px;
+}
+
+.h1Hero {
+  text-align: center;
+  color: white;
+}
+
+.h2Hero {
+  text-align: center;
+  color: white;
+}
+
+.divImgHero {
+  /*position: relative;*/
+  width: 100%;
+  
+}
+
+.imgHero {
+  /*position: absolute;*/
+  max-width: 100%;
+  border-radius: 10px;
+
+  /*size: 100%;*/
+}
+
+@media (max-width: 630px) {
+
+  .h2Hero {
+    display: none;
+  }
+  
+
+}

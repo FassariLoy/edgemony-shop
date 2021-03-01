@@ -1,0 +1,18 @@
+.divHeader {
+  /*position: fixed;*/
+  background-color: var(--backgroundSoft);
+  margin: 0% 5%;
+  width: 90%;
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.5);
+  /*border: 2px solid red;*/
+}
+
+.divImgHeader {
+  /*width: 20%;*/
+  /*border: 2px solid blue;*/
+}
+
+.imgHeader {
+  width: 30%;
+  /*border: 2px solid green;*/
+}

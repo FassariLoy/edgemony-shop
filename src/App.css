@@ -1,0 +1,10 @@
+:root {
+  --backgroundHard: rgb(70, 150, 240); ;
+  --backgroundMedium: rgb(205, 205, 205); 
+  --backgroundSoft: rgb(70, 130, 180); ;
+  --textColor: rgb(255, 255, 255);
+}
+
+.App {
+  background-color: var(--backgroundSoft);
+}
