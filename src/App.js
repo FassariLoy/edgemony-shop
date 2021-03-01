@@ -2,6 +2,7 @@ import "./App.css";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Card from "./components/Card";
+import Footer from "./components/Footer";
 
 const fakeProducts = require("./mocks/data/products.json");
 
@@ -35,13 +36,10 @@ function App() {
         /> 
       </main>
       
-      {/*
       <footer>
-        <FnFooter 
-          company={data.company} 
-        />
+        <Footer />
       </footer>
-      */}
+    
     </div>
   );
 }

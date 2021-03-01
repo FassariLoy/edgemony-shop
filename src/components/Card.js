@@ -1,11 +1,18 @@
 import './Card.css'
 
 function SingleCard (props) {
-  return <div className="divCardMulti">
-    <img src={props.image} alt="" className="imgCard" />
-    <h3>{props.title}</h3>
-    <p>{props.price}</p>
-</div>
+  return (
+    <div className="divSingleCard">
+      <div className="divImgh3Card">
+        <img src={props.image} alt="" className="imgCard" />
+        <h3 className="h3Card">{props.title}</h3>
+      </div>
+      <div className="divpbuttonCard">
+        <p className="pCard">€ {props.price}</p>
+        <button className="buttonCard">View details</button>
+      </div>
+    </div>    
+  )
 }
 
 function Card (props) {
