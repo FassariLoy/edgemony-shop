@@ -1,31 +1,39 @@
 .divHero {
   margin: 0% 5%;
   width: 90%;
+  position: relative;
 /*  border: 2px solid red;*/
 }
 
 .divh1h2Hero {
-  background-color: var(--backgroundHard);
+  /*background-color: var(--backgroundHard);*/
   border-radius: 10px;
+  color: black;
+  
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.h1Hero {
+.divh1h2Hero h1 {
   text-align: center;
-  color: white;
+  /*color: white;*/
 }
 
-.h2Hero {
+.divh1h2Hero h2 {
   text-align: center;
-  color: white;
+  /*color: white;*/
 }
 
 .divImgHero {
   /*position: relative;*/
+  margin: 20px 0 0 0;
   width: 100%;
   
 }
 
-.imgHero {
+.divImgHero img {
   /*position: absolute;*/
   max-width: 100%;
   border-radius: 10px;
@@ -35,9 +43,23 @@
 
 @media (max-width: 630px) {
 
-  .h2Hero {
+  .divHero {
+    margin: 0% 5%;
+    width: 90%;
+    position: static;
+  }
+
+  .divh1h2Hero {
+    background-color: var(--backgroundHard);
+    
+    position: static;
+    top: 100px;
+    left: 50%;
+    /*transform: translate(-50%, -50%);*/
+    transform: none;
+  }
+
+  .divh1h2Hero h2 {
     display: none;
   }
-  
-
 }

@@ -33,6 +33,7 @@ function App() {
         />
         <Card 
           products={data.products}
+          /*modalIsOpen={true}*/
         /> 
       </main>
       

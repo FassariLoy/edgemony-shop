@@ -47,7 +47,7 @@
   
 }
 
-.imgCard {
+.divImgh3Card img {
   margin: 20px 0 0 0;
   /*border: 2px solid red;*/
   max-width: 200px;
@@ -57,14 +57,14 @@
   /*background-color: var(--backgroundHard);*/
 }
 
-.pCard {
+.divpbuttonCard p {
   /*align-self: flex-end;*/
   /*align-content: flex-end;*/
   font-size: 24px;
   /*border: 2px solid darkkhaki;*/
 }
 
-.buttonCard {
+.divpbuttonCard button {
   width: 100px;
   height: 40px;
   /*align-self: flex-end;*/
@@ -73,6 +73,20 @@
   /*border: 2px solid coral;*/
 
 }
+
+/* modale inizio */
+
+.modal {
+  display: none;
+  /*background-color: blue;*/
+}
+
+.modal--is-open {
+  display: block
+}
+
+/* modale inizio */
+
 
 @media (max-width: 630px) {
   .divCard {
