@@ -1,15 +1,24 @@
-import './Card.css'
+import { useState } from "react";
+import ShowModal from "./ShowModal";
+import './Card.css';
 
 function SingleCard (props) {
+  const [ modalIsOpen, setModalIsOpen ] = useState(props.modalIsOpen);
+
   return (
     <div className="divSingleCard">
       <div className="divImgh3Card">
-        <img src={props.image} alt="" className="imgCard" />
-        <h3 className="h3Card">{props.title}</h3>
+        <img src={props.image} alt="" />
+        <h3>{props.title}</h3>
       </div>
       <div className="divpbuttonCard">
-        <p className="pCard">€ {props.price}</p>
-        <button className="buttonCard">View details</button>
+        <p>€ {props.price}</p>
+                
+        <button onClick={() => setModalIsOpen(!modalIsOpen)}>View details</button>
+        <div className={`modal ${ modalIsOpen ? 'modal--is-open' : ''}`}>
+          <ShowModal product={props} />
+        </div>
+        
       </div>
     </div>    
   )
@@ -24,7 +33,9 @@ function Card (props) {
             image={product.image}
             title={product.title}
             price={product.price}
+            description={product.description}
             key={product.id}
+            modalIsOpen={false}
           />
         )
         })
