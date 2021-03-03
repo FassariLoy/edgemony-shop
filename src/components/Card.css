@@ -74,20 +74,6 @@
 
 }
 
-/* modale inizio */
-
-.modal {
-  display: none;
-  /*background-color: blue;*/
-}
-
-.modal--is-open {
-  display: block
-}
-
-/* modale inizio */
-
-
 @media (max-width: 630px) {
   .divCard {
     flex-wrap: nowrap;

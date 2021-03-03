@@ -1,58 +1,63 @@
 import { useState } from "react";
+import { PropTypes } from "prop-types";
 import ShowModal from "./ShowModal";
+
 import './Card.css';
 
-function SingleCard (props) {
-  const [ modalIsOpen, setModalIsOpen ] = useState(props.modalIsOpen);
+function SingleCard ({ product }) {
+  const [ isModalOpen, setModalOpen ] = useState(false);
 
   return (
     <div className="divSingleCard">
       <div className="divImgh3Card">
-        <img src={props.image} alt="" />
-        <h3>{props.title}</h3>
+        <img src={product.image} alt="" />
+        <h3>{product.title}</h3>
       </div>
       <div className="divpbuttonCard">
-        <p>€ {props.price}</p>
+        <p>Price € {product.price}</p>
                 
-        <button onClick={() => setModalIsOpen(!modalIsOpen)}>View details</button>
-        <div className={`modal ${ modalIsOpen ? 'modal--is-open' : ''}`}>
-          <ShowModal product={props} />
-        </div>
+        <button onClick={() => setModalOpen(true)}>View details</button>
         
+        <ShowModal
+          isOpen={isModalOpen}
+          product={product}
+          closeModal={() => setModalOpen(false)}
+        />
       </div>
     </div>    
   )
 }
 
-function Card (props) {
+function Card ({ products }) {
   return (
     <div className="divCard">
-      {props.products.map((product) => {
+      {products.map((product) => {
         return (
           <SingleCard
-            image={product.image}
-            title={product.title}
-            price={product.price}
-            description={product.description}
+
+                     
+            //image={product.image}
+            //title={product.title}
+            //price={product.price}
+            //description={product.description}
+            product={product}
             key={product.id}
-            modalIsOpen={false}
+            //modalIsOpen={false}
           />
         )
         })
       }
-      
-      {/*
-      <div>
-        <h1 className="h1Hero">{props.title}</h1>
-        <h2 className="h2Hero">{props.description}</h2>
-      </div>
-      <div className="divImgHero">
-        <img src={props.cover} alt="" className="imgHero" />
-      </div>
-      */}
-
+    
     </div>
   )
 }
+
+SingleCard.propTypes = {
+  product: PropTypes.object.isRequired,
+};
+
+Card.propTypes = {
+  products: PropTypes.array.isRequired,
+};
 
 export default Card;

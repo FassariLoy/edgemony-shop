@@ -1,21 +1,29 @@
+import { PropTypes } from "prop-types";
+
 import './ShowModal.css';
 
-function ShowModal (props) {
+function ShowModal ({ isOpen, product, closeModal }) {
 
-  return (
-    /*<div style="block" className="divShowModal">*/
+  return isOpen ? (
+    
     <div className="divShowModal">
       <div className="divModal">
-        <button>X</button>
+        <button onClick={() => closeModal(true)}>X</button>
         <div className="divImgModal">
-          <img src={props.product.image} alt="" /> 
+          <img src={product.image} alt={product.title} /> 
         </div>
-        <h3>{props.product.title}</h3>
-        <p>{props.product.description}</p>
-        <span>€ {props.product.price}</span>
+          <h3>{product.title}</h3>
+          <p>{product.description}</p>
+          <span>Price € {product.price}</span>  
       </div>
     </div>
-  )
+  ) : null;
 }
+
+ShowModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  product: PropTypes.object.isRequired,
+  closeModal: PropTypes.func.isRequired,
+};
 
 export default ShowModal;
