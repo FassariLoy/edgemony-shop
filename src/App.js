@@ -1,10 +1,14 @@
-import "./App.css";
+import { useState, useEffect } from "react";
+
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Card from "./components/Card";
 import Footer from "./components/Footer";
+import Loader from "./components/Loader";
 
-const fakeProducts = require("./mocks/data/products.json");
+import "./App.css";
+
+/*const fakeProducts = require("./mocks/data/products.json");*/
 
 const data = {
   title: "Edgemony Shop",
@@ -13,10 +17,41 @@ const data = {
     "https://edgemony.com/wp-content/uploads/2020/03/cropped-Logo-edgemony_TeBIANCO-04.png",
   cover:
     "https://images.pexels.com/photos/4123897/pexels-photo-4123897.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-  products: fakeProducts,
+  /*products: fakeProducts,*/
+  products: [],
 };
 
 function App() {
+  const [ callApi, setCallApi ] = useState([]);
+  const [ isLoading, setLoading ] = useState(false);
+
+  /*
+  const [isError, setError] = useState(false);
+  */
+
+  useEffect(() => {
+    /*console.log("useEffect");*/
+    setLoading(true);
+    /*
+    setError(false);*/
+
+    fetch("https://fakestoreapi.com/products")
+      .then((response) => response.json())
+      .then((callApi) => {
+        console.log(callApi)
+        data.products = callApi;
+        setCallApi(callApi);
+        setLoading(false);
+      })
+      /*
+      .catch(() => {
+        setLoading(false);
+        setError(true);
+      });
+      */
+  }, []);
+
+
   return (
     <div className="App">
       <header className="App-header">
@@ -31,10 +66,16 @@ function App() {
           description={data.description} 
           cover={data.cover} 
         />
-        <Card 
-          products={data.products}
-          /*modalIsOpen={true}*/
-        /> 
+        <div >
+        { !isLoading ?
+            <Card 
+              products={data.products}
+            /> 
+          : 
+            <Loader />
+          
+        }
+        </div>
       </main>
       
       <footer>
