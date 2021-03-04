@@ -28,11 +28,24 @@ function App() {
   const [ callApi, setCallApi ] = useState([]);
   const [ isLoading, setLoading ] = useState(false);
   const [ isError, setError ] = useState(false);
+  const [ retry, setRetry ] = useState(false)
+  const [ CloseBanner, setCloseBanner ] = useState(false)
 
+  function isRetry() {
+    console.log("Retry:", retry)
+    setRetry(true);
+  }
+
+  function isCloseBanner() {
+    console.log("Banner", CloseBanner)
+    setCloseBanner(true);
+  }
+    
   useEffect(() => {
     /*console.log("useEffect");*/
     setLoading(true);
     setError(false);
+    setRetry(false);
 
     fetch(fakeProducts)
       .then((response) => response.json())
@@ -48,14 +61,14 @@ function App() {
         setError(true);
         //let strError = response;
       });
-      
-  }, []);
+  }, [ retry ]);
 
   return (
     <div className="App">
       <header className="App-header">
         <Header 
           logo={data.logo}
+          title={data.title} 
        />
       </header>
         
@@ -70,10 +83,9 @@ function App() {
           ? <ListCard 
               products={data.products}
             /> 
-          : 
-            <Loader />
+          : <Loader />
         }
-        { isError && <Error /> }
+        { isError && <Error isRetry={isRetry} CloseBanner={CloseBanner} isCloseBanner={isCloseBanner} /> }
         </div>
       </main>
       

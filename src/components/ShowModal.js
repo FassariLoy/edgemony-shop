@@ -14,7 +14,7 @@ function ShowModal ({ isOpen, product, closeModal }) {
         </div>
           <h3>{product.title}</h3>
           <p>{product.description}</p>
-          <span>Price € {product.price}</span>  
+          <span className="spnPrice">Price € {product.price}</span>  
       </div>
     </div>
   ) : null;
