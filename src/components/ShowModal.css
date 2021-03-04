@@ -11,15 +11,6 @@
   justify-content: space-around;
 
   background-color: #ffffffc4;
-
-  /*
-  display: block;
-  border-radius: 10px;
-  transform: translate(-50%, 0%);
-  max-width: 520px;
-  height: 1000px;
-  background-color: white;
-  */
 }
 
 .divModal {
@@ -30,12 +21,6 @@
   padding: 30px;
   border: 1px solid;
   border-radius: 10px;
-/*
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-  */
 }
 
 .divModal h3 {
@@ -58,12 +43,19 @@
 }
 
 .divModal button {
-  
+  /*
+  object-fit: cover;
+  object-position: left;
+  */
   top: 100px;
   left: 0px;
 
   background-color: white;
   color: black;
 
+  font-size: 2rem;
+}
+
+.spnPrice {
   font-size: 2rem;
 }

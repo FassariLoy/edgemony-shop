@@ -1,13 +1,18 @@
+import { PropTypes } from "prop-types";
+
 import './Header.css'
 
-function Header(props) {
+function Header({ logo, title }) {
   return (
     <div className="divHeader">
-      <div className="divImgHeader">
-        <img src={props.logo} alt="" /> 
-      </div>
+        <img src={logo} alt={title} /> 
     </div>
   )
 }
+
+Header.propTypes = {
+  logo: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+};
 
 export default Header;

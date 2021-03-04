@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import Header from "./components/Header";
 import Hero from "./components/Hero";
-import Card from "./components/Card";
+import ListCard from "./components/ListCard";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
 import Error from "./components/Error";
@@ -11,7 +11,7 @@ import "./App.css";
 
 /*const fakeProducts = require("./mocks/data/products.json");*/
 
-const fakeProducts = "https://fakestoreapi.com/product";
+const fakeProducts = "https://fakestoreapi.com/products";
 
 const data = {
   title: "Edgemony Shop",
@@ -28,11 +28,24 @@ function App() {
   const [ callApi, setCallApi ] = useState([]);
   const [ isLoading, setLoading ] = useState(false);
   const [ isError, setError ] = useState(false);
+  const [ retry, setRetry ] = useState(false)
+  const [ CloseBanner, setCloseBanner ] = useState(false)
 
+  function isRetry() {
+    console.log("Retry:", retry)
+    setRetry(true);
+  }
+
+  function isCloseBanner() {
+    console.log("Banner", CloseBanner)
+    setCloseBanner(true);
+  }
+    
   useEffect(() => {
     /*console.log("useEffect");*/
     setLoading(true);
     setError(false);
+    setRetry(false);
 
     fetch(fakeProducts)
       .then((response) => response.json())
@@ -48,14 +61,14 @@ function App() {
         setError(true);
         //let strError = response;
       });
-      
-  }, []);
+  }, [ retry ]);
 
   return (
     <div className="App">
       <header className="App-header">
         <Header 
           logo={data.logo}
+          title={data.title} 
        />
       </header>
         
@@ -66,14 +79,13 @@ function App() {
           cover={data.cover} 
         />
         <div >
-        { !isLoading ?
-            <Card 
+        { !isLoading 
+          ? <ListCard 
               products={data.products}
             /> 
-          : 
-            <Loader />
+          : <Loader />
         }
-        { isError && <Error /> }
+        { isError && <Error isRetry={isRetry} CloseBanner={CloseBanner} isCloseBanner={isCloseBanner} /> }
         </div>
       </main>
       

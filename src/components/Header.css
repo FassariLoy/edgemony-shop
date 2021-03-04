@@ -7,12 +7,6 @@
   /*border: 2px solid red;*/
 }
 
-.divImgHeader {
-  /*width: 20%;*/
-  /*border: 2px solid blue;*/
-}
-
-.divImgHeader img {
-  width: 30%;
-  /*border: 2px solid green;*/
+.divHeader img {
+  width: 200px;
 }

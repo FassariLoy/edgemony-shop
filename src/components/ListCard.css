@@ -1,0 +1,11 @@
+.divCard {
+  margin: 0% 5%;
+  display: flex;
+  padding: 5px;
+  border-radius: 10px;
+  flex-wrap: wrap;
+  /*justify-content: center;*/
+  justify-content: space-between;
+  /*border: 2px solid yellow;*/
+  /*border: 2px solid red;*/
+}
