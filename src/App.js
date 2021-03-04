@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import Header from "./components/Header";
 import Hero from "./components/Hero";
-import Card from "./components/Card";
+import ListCard from "./components/ListCard";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
 import Error from "./components/Error";
@@ -11,7 +11,7 @@ import "./App.css";
 
 /*const fakeProducts = require("./mocks/data/products.json");*/
 
-const fakeProducts = "https://fakestoreapi.com/product";
+const fakeProducts = "https://fakestoreapi.com/products";
 
 const data = {
   title: "Edgemony Shop",
@@ -66,8 +66,8 @@ function App() {
           cover={data.cover} 
         />
         <div >
-        { !isLoading ?
-            <Card 
+        { !isLoading 
+          ? <ListCard 
               products={data.products}
             /> 
           : 

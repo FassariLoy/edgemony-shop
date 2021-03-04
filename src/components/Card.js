@@ -4,7 +4,7 @@ import ShowModal from "./ShowModal";
 
 import './Card.css';
 
-function SingleCard ({ product }) {
+function Card ({ product }) {
   const [ isModalOpen, setModalOpen ] = useState(false);
 
   return (
@@ -16,7 +16,7 @@ function SingleCard ({ product }) {
       <div className="divpbuttonCard">
         <p>Price € {product.price}</p>
                 
-        <button onClick={() => setModalOpen(true)}>View details</button>
+        <button type="button" onClick={() => setModalOpen(true)}>View details</button>
         
         <ShowModal
           isOpen={isModalOpen}
@@ -28,36 +28,8 @@ function SingleCard ({ product }) {
   )
 }
 
-function Card ({ products }) {
-  return (
-    <div className="divCard">
-      {products.map((product) => {
-        return (
-          <SingleCard
-
-                     
-            //image={product.image}
-            //title={product.title}
-            //price={product.price}
-            //description={product.description}
-            product={product}
-            key={product.id}
-            //modalIsOpen={false}
-          />
-        )
-        })
-      }
-    
-    </div>
-  )
-}
-
-SingleCard.propTypes = {
-  product: PropTypes.object.isRequired,
-};
-
 Card.propTypes = {
-  products: PropTypes.array.isRequired,
+  product: PropTypes.object.isRequired,
 };
 
 export default Card;

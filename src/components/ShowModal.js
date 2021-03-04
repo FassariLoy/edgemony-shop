@@ -8,7 +8,7 @@ function ShowModal ({ isOpen, product, closeModal }) {
     
     <div className="divShowModal">
       <div className="divModal">
-        <button onClick={() => closeModal(true)}>X</button>
+        <button type="button" onClick={() => closeModal(true)}>X</button>
         <div className="divImgModal">
           <img src={product.image} alt={product.title} /> 
         </div>
