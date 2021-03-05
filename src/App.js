@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 import Header from "./components/Header";
 import Hero from "./components/Hero";
+import Selection from "./components/Selection";
 import ListCard from "./components/ListCard";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
@@ -30,17 +31,23 @@ function App() {
   const [ isError, setError ] = useState(false);
   const [ retry, setRetry ] = useState(false)
   const [ CloseBanner, setCloseBanner ] = useState(false)
-
+  
+  // Filtri
+  const [ Electronics, setElectronics ] = useState(false);
+  const [ Jewelery, setJewelery ] = useState(false);
+  const [ MenClothing, setMenClothing ] = useState(false);
+  const [ WomenClothing, setWomenClothing ] = useState(false);
+  
   function isRetry() {
-    console.log("Retry:", retry)
+    /*console.log("Retry:", retry)*/
     setRetry(true);
   }
 
   function isCloseBanner() {
-    console.log("Banner", CloseBanner)
+    /*console.log("Banner", CloseBanner)*/
     setCloseBanner(true);
   }
-    
+   
   useEffect(() => {
     /*console.log("useEffect");*/
     setLoading(true);
@@ -79,13 +86,30 @@ function App() {
           cover={data.cover} 
         />
         <div >
+        
+        <Selection 
+          Electronics={Electronics} 
+          setElectronics={setElectronics}
+          Jewelery={Jewelery}
+          setJewelery={setJewelery}
+          MenClothing={MenClothing} 
+          setMenClothing={setMenClothing}
+          WomenClothing={WomenClothing}
+          setWomenClothing={setWomenClothing}
+        />
+        
         { !isLoading 
           ? <ListCard 
               products={data.products}
+              Electronics={Electronics} 
+              Jewelery={Jewelery}
+              MenClothing={MenClothing} 
+              WomenClothing={WomenClothing}
             /> 
           : <Loader />
         }
         { isError && <Error isRetry={isRetry} CloseBanner={CloseBanner} isCloseBanner={isCloseBanner} /> }
+        
         </div>
       </main>
       
