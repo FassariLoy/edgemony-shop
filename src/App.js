@@ -27,7 +27,7 @@ const data = {
 
 function App() {
   const [ callApi, setCallApi ] = useState([]);
-  const [ isLoading, setLoading ] = useState(false);
+  const [ isLoading, setLoading ] = useState(true);
   const [ isError, setError ] = useState(false);
   
   //Banner Error
@@ -51,17 +51,15 @@ function App() {
 
     fetch(fakeProducts)
       .then((response) => response.json())
-      .then((callApi) => {
-        /*console.log(callApi)*/
-        data.products = callApi;
-        setCallApi(callApi);
+      .then((dataApi) => {
+        data.products = dataApi;
+        setCallApi(dataApi);
         setLoading(false);
       })
       
       .catch(() => {
         setLoading(false);
         setError(true);
-        //let strError = response;
       });
   }, [ retry ]);
 
@@ -82,36 +80,38 @@ function App() {
         />
 
         <div >
-        < Selection 
-            serch={serch}
-            setSerch={setSerch}
-            Electronics={Electronics} 
-            setElectronics={setElectronics}
-            Jewelery={Jewelery}
-            setJewelery={setJewelery}
-            MenClothing={MenClothing} 
-            setMenClothing={setMenClothing}
-            WomenClothing={WomenClothing}
-            setWomenClothing={setWomenClothing}
-            nmProducts={nmProducts}
-        /> 
-        
-        { !isLoading 
-          ? <ListCard 
-              serch={serch}
-              products={data.products}
-              Electronics={Electronics} 
-              Jewelery={Jewelery}
-              MenClothing={MenClothing} 
-              WomenClothing={WomenClothing}
-              nmProducts={nmProducts}
-              setNmProducts={setNmProducts}
-            /> 
-           
-          : <Loader />
-        }
-        {/*{ isError && <Error isRetry={isRetry} CloseBanner={CloseBanner} setCloseBanner={setCloseBanner} /> }*/}
-        { isError && <Error setRetry={setRetry} CloseBanner={CloseBanner} setCloseBanner={setCloseBanner} /> }
+          { !isLoading 
+            ? <div>
+                <Selection 
+                  serch={serch}
+                  setSerch={setSerch}
+                  Electronics={Electronics} 
+                  setElectronics={setElectronics}
+                  Jewelery={Jewelery}
+                  setJewelery={setJewelery}
+                  MenClothing={MenClothing} 
+                  setMenClothing={setMenClothing}
+                  WomenClothing={WomenClothing}
+                  setWomenClothing={setWomenClothing}
+                  nmProducts={nmProducts}
+                />
+                <ListCard 
+                  serch={serch}
+                  products={data.products}
+                  Electronics={Electronics} 
+                  Jewelery={Jewelery}
+                  MenClothing={MenClothing} 
+                  WomenClothing={WomenClothing}
+                  nmProducts={nmProducts}
+                  setNmProducts={setNmProducts}
+                />
+             
+              </div>
+              
+            : <Loader />
+          }
+
+          { isError && <Error setRetry={setRetry} CloseBanner={CloseBanner} setCloseBanner={setCloseBanner} /> }
         </div>
       </main>
       
