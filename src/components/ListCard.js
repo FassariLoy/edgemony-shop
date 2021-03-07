@@ -2,13 +2,8 @@ import { PropTypes } from "prop-types";
 import Card from "./Card";
 
 import './ListCard.css';
-/*
-function Filtro ( {products} ) {
-  const pippo = products.map((product) => product.title + "2");
-}
-*/
 
-function ListCard ({ products, Electronics, Jewelery, MenClothing, WomenClothing }) {
+function ListCard ({ serch, products, Electronics, Jewelery, MenClothing, WomenClothing, setNmProducts }) {
   let aryFilter = [];
  
   if (Electronics) {
@@ -25,9 +20,20 @@ function ListCard ({ products, Electronics, Jewelery, MenClothing, WomenClothing
    
   if (WomenClothing) {
     aryFilter = aryFilter.concat(products.filter((product) => product.category === "women clothing"));
+  } 
+
+  if ((!Electronics) && (!Jewelery) && (!MenClothing) && (!WomenClothing)) {
+    aryFilter = products;
   }
- 
-  console.log(Jewelery)
+  aryFilter  = aryFilter.filter((product) => {
+    return (
+      product.title.toUpperCase().includes(serch.toUpperCase()) ||
+      product.description.toUpperCase().includes(serch.toUpperCase())
+      )
+  })
+  
+  setNmProducts(aryFilter.length);
+  
   return (
     <div className="divCard">
       {aryFilter.map((product) => {
@@ -45,12 +51,16 @@ function ListCard ({ products, Electronics, Jewelery, MenClothing, WomenClothing
 }
 
 ListCard.propTypes = {
+  serch: PropTypes.string.isRequired,
+
   products: PropTypes.array.isRequired,
   Electronics: PropTypes.bool.isRequired, 
   Jewelery: PropTypes.bool.isRequired, 
   MenClothing: PropTypes.bool.isRequired, 
   WomenClothing: PropTypes.bool.isRequired, 
-  
+
+  nmProducts: PropTypes.number.isRequired,
+  setNmProducts: PropTypes.func.isRequired,
 };
 
 export default ListCard;
