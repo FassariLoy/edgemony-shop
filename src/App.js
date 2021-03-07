@@ -27,27 +27,22 @@ const data = {
 
 function App() {
   const [ callApi, setCallApi ] = useState([]);
-  const [ isLoading, setLoading ] = useState(false);
+  const [ isLoading, setLoading ] = useState(true);
   const [ isError, setError ] = useState(false);
+  
+  //Banner Error
   const [ retry, setRetry ] = useState(false)
   const [ CloseBanner, setCloseBanner ] = useState(false)
   
-  // Filtri
+  // Filtri + Nm Prodotti
+  const [ serch, setSerch ] = useState("");
   const [ Electronics, setElectronics ] = useState(false);
   const [ Jewelery, setJewelery ] = useState(false);
   const [ MenClothing, setMenClothing ] = useState(false);
   const [ WomenClothing, setWomenClothing ] = useState(false);
-  
-  function isRetry() {
-    /*console.log("Retry:", retry)*/
-    setRetry(true);
-  }
 
-  function isCloseBanner() {
-    /*console.log("Banner", CloseBanner)*/
-    setCloseBanner(true);
-  }
-   
+  const [ nmProducts, setNmProducts ] = useState(Number)
+ 
   useEffect(() => {
     /*console.log("useEffect");*/
     setLoading(true);
@@ -56,17 +51,15 @@ function App() {
 
     fetch(fakeProducts)
       .then((response) => response.json())
-      .then((callApi) => {
-        /*console.log(callApi)*/
-        data.products = callApi;
-        setCallApi(callApi);
+      .then((dataApi) => {
+        data.products = dataApi;
+        setCallApi(dataApi);
         setLoading(false);
       })
       
       .catch(() => {
         setLoading(false);
         setError(true);
-        //let strError = response;
       });
   }, [ retry ]);
 
@@ -85,31 +78,40 @@ function App() {
           description={data.description} 
           cover={data.cover} 
         />
+
         <div >
-        
-        <Selection 
-          Electronics={Electronics} 
-          setElectronics={setElectronics}
-          Jewelery={Jewelery}
-          setJewelery={setJewelery}
-          MenClothing={MenClothing} 
-          setMenClothing={setMenClothing}
-          WomenClothing={WomenClothing}
-          setWomenClothing={setWomenClothing}
-        />
-        
-        { !isLoading 
-          ? <ListCard 
-              products={data.products}
-              Electronics={Electronics} 
-              Jewelery={Jewelery}
-              MenClothing={MenClothing} 
-              WomenClothing={WomenClothing}
-            /> 
-          : <Loader />
-        }
-        { isError && <Error isRetry={isRetry} CloseBanner={CloseBanner} isCloseBanner={isCloseBanner} /> }
-        
+          { !isLoading 
+            ? <div>
+                <Selection 
+                  serch={serch}
+                  setSerch={setSerch}
+                  Electronics={Electronics} 
+                  setElectronics={setElectronics}
+                  Jewelery={Jewelery}
+                  setJewelery={setJewelery}
+                  MenClothing={MenClothing} 
+                  setMenClothing={setMenClothing}
+                  WomenClothing={WomenClothing}
+                  setWomenClothing={setWomenClothing}
+                  nmProducts={nmProducts}
+                />
+                <ListCard 
+                  serch={serch}
+                  products={data.products}
+                  Electronics={Electronics} 
+                  Jewelery={Jewelery}
+                  MenClothing={MenClothing} 
+                  WomenClothing={WomenClothing}
+                  nmProducts={nmProducts}
+                  setNmProducts={setNmProducts}
+                />
+             
+              </div>
+              
+            : <Loader />
+          }
+
+          { isError && <Error setRetry={setRetry} CloseBanner={CloseBanner} setCloseBanner={setCloseBanner} /> }
         </div>
       </main>
       
