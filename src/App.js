@@ -40,8 +40,10 @@ function App() {
   const [ Jewelery, setJewelery ] = useState(false);
   const [ MenClothing, setMenClothing ] = useState(false);
   const [ WomenClothing, setWomenClothing ] = useState(false);
-
   const [ nmProducts, setNmProducts ] = useState(Number)
+
+  // Cart
+  const [ ProductsCart, setProductsCart ] = useState([]);
  
   useEffect(() => {
     /*console.log("useEffect");*/
@@ -69,6 +71,7 @@ function App() {
         <Header 
           logo={data.logo}
           title={data.title} 
+          ProductsCart={ProductsCart}
        />
       </header>
         
@@ -104,8 +107,12 @@ function App() {
                   WomenClothing={WomenClothing}
                   nmProducts={nmProducts}
                   setNmProducts={setNmProducts}
+                  
+                  ProductsCart={ProductsCart}
+                  setProductsCart={setProductsCart}
+                  
                 />
-             
+             {console.log(ProductsCart)}
               </div>
               
             : <Loader />

@@ -1,5 +1,6 @@
 .divHeader {
   /*position: fixed;*/
+  display: flex;
   background-color: var(--backgroundSoft);
   margin: 0% 5%;
   width: 90%;

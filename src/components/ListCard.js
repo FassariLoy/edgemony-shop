@@ -3,7 +3,7 @@ import Card from "./Card";
 
 import './ListCard.css';
 
-function ListCard ({ serch, products, Electronics, Jewelery, MenClothing, WomenClothing, setNmProducts }) {
+function ListCard ({ serch, products, Electronics, Jewelery, MenClothing, WomenClothing, setNmProducts, ProductsCart, setProductsCart }) {
   let aryFilter = [];
  
   if (Electronics) {
@@ -41,7 +41,8 @@ function ListCard ({ serch, products, Electronics, Jewelery, MenClothing, WomenC
           <Card
             product={product}
             key={product.id}
-            //modalIsOpen={false}
+            ProductsCart={ProductsCart}
+            setProductsCart={setProductsCart}
           />
         )
         })
@@ -61,6 +62,9 @@ ListCard.propTypes = {
 
   nmProducts: PropTypes.number.isRequired,
   setNmProducts: PropTypes.func.isRequired,
+
+  ProductsCart: PropTypes.array.isRequired,
+  setProductsCart: PropTypes.func.isRequired,
 };
 
 export default ListCard;
