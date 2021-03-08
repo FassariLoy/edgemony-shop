@@ -1,12 +1,26 @@
 .divHeader {
   /*position: fixed;*/
+  display: flex;
+  justify-content: space-between;
   background-color: var(--backgroundSoft);
-  margin: 0% 5%;
+  padding: 10px;
+
+  /*margin: 0% 5%;
   width: 90%;
   box-shadow: 0 4px 32px rgba(0, 0, 0, 0.5);
-  /*border: 2px solid red;*/
+  border: 2px solid red;*/
 }
 
 .divHeader img {
-  width: 200px;
+  width: 300px;
+}
+
+.divHeader .divH3 {
+/*  border: 2px solid red;*/
+  display: flex;
+  flex-direction: column;
+}
+
+.divHeader h3 {
+  /*border: 2px solid green;*/
 }
