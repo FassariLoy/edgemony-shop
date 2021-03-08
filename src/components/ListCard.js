@@ -1,4 +1,4 @@
-import { PropTypes } from "prop-types";
+import PropTypes from "prop-types";
 import Card from "./Card";
 
 import './ListCard.css';

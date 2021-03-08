@@ -13,6 +13,6 @@ export async function fetchProducts() {
   return callAPI("products");
 }
 
-export async function fetchCatogories() {
+export async function fetchCategories() {
   return callAPI("products/categories");
 }

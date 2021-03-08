@@ -7,12 +7,13 @@ import ListCard from "./components/ListCard";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
 import Error from "./components/Error";
+import { fetchProducts, fetchCategories } from "./services/api";
 
 import "./App.css";
 
 /*const fakeProducts = require("./mocks/data/products.json");*/
 
-const fakeProducts = "https://fakestoreapi.com/products";
+/*const fakeProducts = "https://fakestoreapi.com/products";*/
 
 const data = {
   title: "Edgemony Shop",
@@ -26,14 +27,19 @@ const data = {
 };
 
 function App() {
-  const [ callApi, setCallApi ] = useState([]);
+  //const [ callApi, setCallApi ] = useState([]);
+
+  const [ isLoading, setLoading ] = useState(false);
+  //const [ isError, setError ] = useState(false);
+  //08.03  
+  const [ apiError, setApiError ] = useState("");
   
-  const [ isLoading, setLoading ] = useState(true);
-  const [ isError, setError ] = useState(false);
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   
   //Banner Error
   const [ retry, setRetry ] = useState(false)
-  const [ CloseBanner, setCloseBanner ] = useState(false)
+  // const [ CloseBanner, setCloseBanner ] = useState(false)
   
   // Filtri + Nm Prodotti
   const [ serch, setSerch ] = useState("");
@@ -45,83 +51,77 @@ function App() {
 
   // Cart
   const [ ProductsCart, setProductsCart ] = useState([]);
- 
-  useEffect(() => {
-    /*console.log("useEffect");*/
-    setLoading(true);
-    setError(false);
-    setRetry(false);
 
-    fetch(fakeProducts)
-      .then((response) => response.json())
-      .then((dataApi) => {
-        data.products = dataApi;
-        setCallApi(dataApi);
-        setLoading(false);
+  useEffect(() => {
+    setLoading(true);
+    setApiError("");
+    Promise.all([fetchProducts(), fetchCategories()])
+      .then(([products, categories]) => {
+        // 08.03 setProducts(products);*/ 
+        data.products=products;
+        setCategories(categories);
       })
-      
-      .catch(() => {
-        setLoading(false);
-        setError(true);
-      });
+      .catch((err) => setApiError(err.message))
+      .finally(() => setLoading(false));
   }, [ retry ]);
 
   return (
     <div className="App">
-      <header className="App-header">
-        <Header 
-          logo={data.logo}
-          title={data.title} 
-          products={data.products}
-          ProductsCart={ProductsCart}
-       />
-      </header>
+     
+      <Header 
+        logo={data.logo}
+        title={data.title} 
+        products={data.products}
+        ProductsCart={ProductsCart}
+      />
+    
+      <Hero 
+        title={data.title} 
+        description={data.description} 
+        cover={data.cover} 
+      />
         
       <main>
-        <Hero 
-          title={data.title} 
-          description={data.description} 
-          cover={data.cover} 
-        />
-
-        <div >
-          { !isLoading 
-            ? <div>
-                <Selection 
-                  serch={serch}
-                  setSerch={setSerch}
-                  Electronics={Electronics} 
-                  setElectronics={setElectronics}
-                  Jewelery={Jewelery}
-                  setJewelery={setJewelery}
-                  MenClothing={MenClothing} 
-                  setMenClothing={setMenClothing}
-                  WomenClothing={WomenClothing}
-                  setWomenClothing={setWomenClothing}
-                  nmProducts={nmProducts}
-                />
-                <ListCard 
-                  serch={serch}
-                  products={data.products}
-                  Electronics={Electronics} 
-                  Jewelery={Jewelery}
-                  MenClothing={MenClothing} 
-                  WomenClothing={WomenClothing}
-                  nmProducts={nmProducts}
-                  setNmProducts={setNmProducts}
-                  
-                  ProductsCart={ProductsCart}
-                  setProductsCart={setProductsCart}
-                  
-                />
-             {console.log(ProductsCart)}
-              </div>
+        {isLoading ? ( 
+          <Loader /> 
+        ) : apiError ? (
+          <Error 
+            messageErr={apiError}
+            closeBanner={() => setApiError("")}
+            retry={() => setRetry(!retry)}
+          /> 
+        ) : (
+          <div>
+            <Selection 
+              serch={serch}
+              setSerch={setSerch}
+              Electronics={Electronics} 
+              setElectronics={setElectronics}
+              Jewelery={Jewelery}
+              setJewelery={setJewelery}
+              MenClothing={MenClothing} 
+              setMenClothing={setMenClothing}
+              WomenClothing={WomenClothing}
+              setWomenClothing={setWomenClothing}
+              nmProducts={nmProducts}
+            />
+            <ListCard 
+              serch={serch}
+              products={data.products}
+              Electronics={Electronics} 
+              Jewelery={Jewelery}
+              MenClothing={MenClothing} 
+              WomenClothing={WomenClothing}
+              nmProducts={nmProducts}
+              setNmProducts={setNmProducts}
               
-            : <Loader />
-          }
-
-          { isError && <Error setRetry={setRetry} CloseBanner={CloseBanner} setCloseBanner={setCloseBanner} /> }
-        </div>
+              ProductsCart={ProductsCart}
+              setProductsCart={setProductsCart}
+              
+            />
+          </div>
+        )}
+      
       </main>
       
       <footer>
