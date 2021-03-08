@@ -24,7 +24,7 @@ function Card ({ product, ProductsCart, setProductsCart }) {
         <h3>{product.title}</h3>
       </div>
       <div className="divpbuttonCard">
-        <p>Price € {product.price}</p>
+        <p>Price € {product.price.toFixed(2)}</p>
                 
         <button type="button" onClick={() => setModalOpen(true)}>View details</button>
         

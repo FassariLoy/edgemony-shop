@@ -12,7 +12,7 @@ import './Selection.css';
     <div className="divCard">
       <label htmlFor="serch">Serch</label>
       <input id="serch" type="text" onChange={InputSerch} />
-      <label htmlFor="">Number Product: {nmProducts} </label>
+      <label htmlFor="">Product: {nmProducts} </label>
       <div>
         <button type="button" onClick={() => setElectronics(!Electronics) } className={`${ Electronics ? `isSelect` : 'unSelect' }`}>Electronics</button>
         <button type="button" onClick={() => setJewelery(!Jewelery) } className={`${ Jewelery ? `isSelect` : 'unSelect' }`}>Jewelery</button>

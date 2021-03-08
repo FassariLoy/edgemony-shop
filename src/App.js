@@ -27,6 +27,7 @@ const data = {
 
 function App() {
   const [ callApi, setCallApi ] = useState([]);
+  
   const [ isLoading, setLoading ] = useState(true);
   const [ isError, setError ] = useState(false);
   
@@ -71,6 +72,7 @@ function App() {
         <Header 
           logo={data.logo}
           title={data.title} 
+          products={data.products}
           ProductsCart={ProductsCart}
        />
       </header>

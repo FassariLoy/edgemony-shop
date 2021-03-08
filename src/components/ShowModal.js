@@ -31,7 +31,7 @@ function ShowModal ({ isOpen, product, closeModal, ProductsCart, setProductsCart
         </div>
         <h3>{product.title}</h3>
         <p>{product.description}</p>
-        <span className="spnPrice">Price € {product.price}</span>  
+        <span className="spnPrice">Price € {product.price.toFixed(2)}</span>  
         <button disabled={DisableBtnCart()} type="button" onClick={AddCart} >{TextBtnCart()}</button> 
       </div>
         
