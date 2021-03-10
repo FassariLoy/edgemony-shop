@@ -35,7 +35,7 @@
   
 }
 
-.divImgh3Card img {
+.divImgh3Card .CardImg {
   margin: 20px 0 0 0;
   /*border: 2px solid red;*/
   max-width: 200px;
@@ -45,14 +45,14 @@
   /*background-color: var(--backgroundHard);*/
 }
 
-.divpbuttonCard p {
+.divpbuttonCard .CardP {
   /*align-self: flex-end;*/
   /*align-content: flex-end;*/
-  font-size: 24px;
+  /*font-size: 24px;*/
   /*border: 2px solid darkkhaki;*/
 }
 
-.divpbuttonCard button {
+.divpbuttonCard .btnView {
   width: 100px;
   height: 40px;
   /*align-self: flex-end;*/

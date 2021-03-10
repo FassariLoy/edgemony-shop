@@ -6,11 +6,11 @@ function Hero({ cover, title, description }) {
   return (
     <div className="divHero">
       <div className="divh1h2Hero">
-        <h1>{title}</h1>
-        <h2>{description}</h2>
+        <h1 className="HeroH1">{title}</h1>
+        <h2 className="HeroH2">{description}</h2>
       </div>
       <div className="divImgHero">
-        <img src={cover} alt={title} />
+        <img className="HeroImg" src={cover} alt={title} />
       </div>
     </div>
   )

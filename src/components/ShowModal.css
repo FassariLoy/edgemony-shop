@@ -23,12 +23,12 @@
   border-radius: 10px;
 }
 
-.divModal h3 {
+.divModal .ShowCardH3 {
   font-size: 2rem;
 }
 
-.divModal p {
-  font-size: 3rem;
+.divModal .ShowCardP {
+  font-size: 1.5rem;
 }
 
 .divImgModal {
@@ -36,7 +36,7 @@
   
 }
 
-.divImgModal img {
+.divImgModal .ShowCardImg {
   max-width: 400px;
   max-height: 400px;
   

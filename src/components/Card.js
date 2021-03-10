@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import ShowModal from "./ShowModal";
+import { formatPrice } from "../services/utils";
 
 import './Card.css';
 
@@ -20,13 +21,13 @@ function Card ({ product, ProductsCart, setProductsCart }) {
   return (
     <div className="divSingleCard">
       <div className="divImgh3Card">
-        <img src={product.image} alt="" />
+        <img className="CardImg" src={product.image} alt="" />
         <h3>{product.title}</h3>
       </div>
       <div className="divpbuttonCard">
-        <p>Price € {product.price.toFixed(2)}</p>
+        <p className="CardP">Price: {formatPrice(product.price)}</p>
                 
-        <button type="button" onClick={() => setModalOpen(true)}>View details</button>
+        <button className="btnView" type="button" onClick={() => setModalOpen(true)}>View details</button>
         
         <ShowModal
           isOpen={isModalOpen}

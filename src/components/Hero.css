@@ -16,12 +16,12 @@
   transform: translate(-50%, -50%);
 }
 
-.divh1h2Hero h1 {
+.divh1h2Hero .HeroH1 {
   text-align: center;
   /*color: white;*/
 }
 
-.divh1h2Hero h2 {
+.divh1h2Hero .HeroH2 {
   text-align: center;
   /*color: white;*/
 }
@@ -33,7 +33,7 @@
   
 }
 
-.divImgHero img {
+.divImgHero .HeroImg {
   /*position: absolute;*/
   max-width: 100%;
   border-radius: 10px;
@@ -59,7 +59,7 @@
     transform: none;
   }
 
-  .divh1h2Hero h2 {
+  .divh1h2Hero .HeroH2 {
     display: none;
   }
 }

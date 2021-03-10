@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
-
+import { formatPrice } from "../services/utils";
 import './ShowModal.css';
+
 
 function ShowModal ({ isOpen, product, closeModal, ProductsCart, setProductsCart }) {
 
@@ -27,11 +28,11 @@ function ShowModal ({ isOpen, product, closeModal, ProductsCart, setProductsCart
       <div className="divModal">
         <button className="btnClose" type="button" onClick={() => closeModal(true)}>X</button>
         <div className="divImgModal">
-          <img src={product.image} alt={product.title} /> 
+          <img className="ShowCardImg" src={product.image} alt={product.title} /> 
         </div>
-        <h3>{product.title}</h3>
-        <p>{product.description}</p>
-        <span className="spnPrice">Price € {product.price.toFixed(2)}</span>  
+        <h3 className="ShowCardH3">{product.title}</h3>
+        <p className="ShowCardP">{product.description}</p>
+        <span className="spnPrice">Price: {formatPrice(product.price)}</span>  
         <button disabled={DisableBtnCart()} type="button" onClick={AddCart} >{TextBtnCart()}</button> 
       </div>
         

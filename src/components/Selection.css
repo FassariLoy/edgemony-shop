@@ -6,9 +6,14 @@
   background-color: gray;
 }
 
-button {
+.btnCategory {
   width: 130px;
   height: 40px;
   border-radius: 10px;
   margin: 5px;
+  
+}
+
+.btnCategory:hover {
+  cursor: pointer;
 }

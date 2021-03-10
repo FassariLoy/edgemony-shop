@@ -50,6 +50,7 @@ function App() {
   const [ nmProducts, setNmProducts ] = useState(Number)
 
   // Cart
+  //const [ ProductsCart, setProductsCart ] = useState([{id: 0, qty:0}]);
   const [ ProductsCart, setProductsCart ] = useState([]);
 
   useEffect(() => {
@@ -73,6 +74,7 @@ function App() {
         title={data.title} 
         products={data.products}
         ProductsCart={ProductsCart}
+        setProductsCart={setProductsCart}
       />
     
       <Hero 

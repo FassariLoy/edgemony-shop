@@ -14,10 +14,10 @@ import './Selection.css';
       <input id="serch" type="text" onChange={InputSerch} />
       <label htmlFor="">Product: {nmProducts} </label>
       <div>
-        <button type="button" onClick={() => setElectronics(!Electronics) } className={`${ Electronics ? `isSelect` : 'unSelect' }`}>Electronics</button>
-        <button type="button" onClick={() => setJewelery(!Jewelery) } className={`${ Jewelery ? `isSelect` : 'unSelect' }`}>Jewelery</button>
-        <button type="button" onClick={() => setMenClothing(!MenClothing) } className={`${ MenClothing ? `isSelect` : 'unSelect' }`}>Men clothing</button>
-        <button type="button" onClick={() => setWomenClothing(!WomenClothing) } className={`${ WomenClothing ? `isSelect` : 'unSelect' }`}>Women clothing</button>
+        <button type="button" onClick={() => setElectronics(!Electronics) } className={`btnCategory ${ Electronics ? `isSelect` : 'unSelect' }`}>Electronics</button>
+        <button type="button" onClick={() => setJewelery(!Jewelery) } className={`btnCategory ${ Jewelery ? `isSelect` : 'unSelect' }`}>Jewelery</button>
+        <button type="button" onClick={() => setMenClothing(!MenClothing) } className={`btnCategory ${ MenClothing ? `isSelect` : 'unSelect' }`}>Men clothing</button>
+        <button type="button" onClick={() => setWomenClothing(!WomenClothing) } className={`btnCategory ${ WomenClothing ? `isSelect` : 'unSelect' }`}>Women clothing</button>
       </div>
     </div>
   )
