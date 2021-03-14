@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 
 import Header from "./components/Header";
 import Hero from "./components/Hero";
-import Selection from "./components/Selection";
+
 import ListCard from "./components/ListCard";
+import ShowModalProduct from "./components/ShowModalProduct";
+import ShowModalCart from "./components/ShowModalCart";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
 import Error from "./components/Error";
@@ -23,58 +25,98 @@ const data = {
   cover:
     "https://images.pexels.com/photos/4123897/pexels-photo-4123897.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
   /*products: fakeProducts,*/
-  products: [],
+  /*products: [],*/
 };
 
 function App() {
-  //const [ callApi, setCallApi ] = useState([]);
+  // Logic
+  const [ productInModal, setProductInModal ] = useState({});
+  const [ isOpenProduct, setIsOpenProduct ] = useState(false);
+  const [ isOpenCart, setIsOpenCart ] = useState(false);
+  
+  function openProductModal(product) {
+    /*console.log(product);*/
+    setProductInModal(product);
+    setIsOpenProduct(true);
+  }
 
+  useEffect(() => {
+    if (isOpenProduct || isOpenCart) {
+      document.body.style.height = `100vh`;
+      document.body.style.overflow = `hidden`;
+    } else {
+      document.body.style.height = ``;
+      document.body.style.overflow = ``;
+    }
+  }, [ isOpenProduct, isOpenCart ]);
+
+  // API
+  const [ products, setProducts ] = useState([]);
+  const [ categories, setCategories ] = useState([]);
   const [ isLoading, setLoading ] = useState(false);
-  //const [ isError, setError ] = useState(false);
-  //08.03  
   const [ apiError, setApiError ] = useState("");
+  const [ retry, setRetry ] = useState(false);
   
-  const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
-  
-  //Banner Error
-  const [ retry, setRetry ] = useState(false)
-  // const [ CloseBanner, setCloseBanner ] = useState(false)
-  
-  // Filtri + Nm Prodotti
-  const [ serch, setSerch ] = useState("");
-  const [ Electronics, setElectronics ] = useState(false);
-  const [ Jewelery, setJewelery ] = useState(false);
-  const [ MenClothing, setMenClothing ] = useState(false);
-  const [ WomenClothing, setWomenClothing ] = useState(false);
-  const [ nmProducts, setNmProducts ] = useState(Number)
-
-  // Cart
-  //const [ ProductsCart, setProductsCart ] = useState([{id: 0, qty:0}]);
-  const [ ProductsCart, setProductsCart ] = useState([]);
-
   useEffect(() => {
     setLoading(true);
     setApiError("");
     Promise.all([fetchProducts(), fetchCategories()])
       .then(([products, categories]) => {
         // 08.03 setProducts(products);*/ 
-        data.products=products;
+        setProducts(products);
         setCategories(categories);
       })
       .catch((err) => setApiError(err.message))
       .finally(() => setLoading(false));
   }, [ retry ]);
 
+  // Cart
+  const [ ProductsCart, setProductsCart ] = useState([]);
+
+  const cartProducts = ProductsCart.map((cartItem) => {
+    const { price, image, title, id } = products.find(
+      (p) => p.id === cartItem.id
+    );
+    return { price, image, title, id, quantity: cartItem.quantity };
+  });
+
+  const cartTotal = cartProducts.reduce(
+    (total, product) => total + product.price * product.quantity, 0);
+ 
+  function isInCart(product) {
+    return product != null && ProductsCart.find((p) => p.id === product.id) != null;
+  }
+ 
+  function addToCart(productId) {
+    setProductsCart([...ProductsCart, { id: productId, quantity: 1 }]);
+  }
+ 
+  function removeFromCart(productId) {
+    setProductsCart(ProductsCart.filter((product) => product.id !== productId));
+  }
+
+  const emptyCart = () => setProductsCart([]);
+  
+  function setProductQuantity(productId, quantity) {
+    setProductsCart(
+      ProductsCart.map((product) =>
+      product.id === productId ? { ...product, quantity } : product
+    )
+  );
+}
+    
   return (
     <div className="App">
      
       <Header 
         logo={data.logo}
         title={data.title} 
-        products={data.products}
-        ProductsCart={ProductsCart}
-        setProductsCart={setProductsCart}
+        /*products={data.products}*/
+        
+        cartTotal={cartTotal}
+        cartSize={ProductsCart.length}
+        products={products}
+        onCartClick={() => ProductsCart.length !== 0 ? setIsOpenCart(true) : setIsOpenCart(false)}
       />
     
       <Hero 
@@ -94,37 +136,36 @@ function App() {
           /> 
         ) : (
           <div>
-            <Selection 
-              serch={serch}
-              setSerch={setSerch}
-              Electronics={Electronics} 
-              setElectronics={setElectronics}
-              Jewelery={Jewelery}
-              setJewelery={setJewelery}
-              MenClothing={MenClothing} 
-              setMenClothing={setMenClothing}
-              WomenClothing={WomenClothing}
-              setWomenClothing={setWomenClothing}
-              nmProducts={nmProducts}
-            />
             <ListCard 
-              serch={serch}
-              products={data.products}
-              Electronics={Electronics} 
-              Jewelery={Jewelery}
-              MenClothing={MenClothing} 
-              WomenClothing={WomenClothing}
-              nmProducts={nmProducts}
-              setNmProducts={setNmProducts}
-              
-              ProductsCart={ProductsCart}
-              setProductsCart={setProductsCart}
-              
+              products={products}
+              categories={categories}
+              openProductModal={openProductModal}
             />
           </div>
         )}
       
       </main>
+
+      <ShowModalCart
+        isOpen={isOpenCart}
+        products={cartProducts}
+        closeModal={() => setIsOpenCart(false)}
+        
+        cartTotal={cartTotal}
+        removeFromCart={removeFromCart}
+        emptyCart={emptyCart}
+        setProductQuantity={setProductQuantity}
+      />
+      
+      <ShowModalProduct
+        isOpen={isOpenProduct}
+        product={productInModal}
+        closeModal={() => setIsOpenProduct(false)}
+       
+        inCart={isInCart(productInModal)}
+        addToCart={addToCart}
+        removeFromCart={removeFromCart}
+      />
       
       <footer>
         <Footer />

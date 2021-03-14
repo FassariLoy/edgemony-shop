@@ -1,0 +1,114 @@
+.divCart {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  
+  width: 50vw;
+  height: 100vh;
+  /*width: 50%;
+  height: 90%;*/
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  /*box-sizing: border-box;*/
+  /*border: 2px solid red;*/
+  
+  /*justify-content: flex-start;*/
+  color: black;
+}
+
+.divCart .btnClose {
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  z-index: 100;
+}
+
+.divCart .headerCart {
+  position: fixed;
+  height: 50px;
+  width: 50%;
+  /*border: 2px solid white;*/
+  text-align: center;
+  background-color: var(--backgroundHard);
+
+  /*z-index: 10;*/
+  /*color: black;*/
+  /*display: flex;
+  flex-direction: row;
+  justify-content: space-around;*/
+}
+
+.divCart .divProducts {
+  /*border: 4px solid black;*/
+  position: relative;
+  top: 30px;
+  height: 50%;
+  bottom: 200px;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.divCart .ArticleCart {
+  margin: 5px;
+  border: 3px solid var(--backgroundSoft);
+  border-radius: 10px;
+  display: flex;
+  /*overflow-y: auto;*/
+  width: 95%;
+  height: 200px;
+ 
+  padding: 10px;
+}
+
+.divCart .ArticleImg {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  object-position: center;
+}
+
+.divCart .ArticleDate {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0px 20px;
+}
+
+.ArticleCart .btnQty {
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+}
+
+.ArticleCart .PriceRemove {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /*margin-left: 0;*/
+}
+
+.divCart .footerCart {
+  /*position: fixed;*/
+  /*bottom: auto;*/
+  height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: var(--backgroundHard);
+  /*border: 2px solid green;*/
+  text-align: center;
+
+  /*display: block;*/
+  
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+
+  z-index: 100;
+}
