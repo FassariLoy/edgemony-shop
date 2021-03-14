@@ -5,7 +5,7 @@ import './Error.css'
 function Error({ messageErr, closeBanner, retry }) {
   return (
     <div className="divError"> 
-      <h2>{messageErr}</h2>
+      <h2 className="ErrorH2">{messageErr}</h2>
       <button className="Retry" type="button" onClick={() => retry()}>Retry</button>
       <button className="Close" type="button" onClick={() => closeBanner()}>X</button>
     </div>

@@ -1,19 +1,29 @@
-.divSingleCard {
+.SingleCard {
   /*background-color: var(--backgroundHard);*/
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  border: 3px solid var(--backgroundHard);
+  border-radius: 10px;
   background-color: white;
-  border-radius: 5px;
+  padding: 20px;
+  
   min-width: 300px;
   max-width: 300px;
   height: 450px;
   margin: 10px;
-  padding: 0 0 20px 0;
-  border: 3px solid var(--backgroundHard);
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+ 
+ /* justify-content: space-between;*/
 }
 
+.SingleCard img {
+  width: 100%;
+  height: 300px;
+  object-fit: contain;
+  object-position: center;
+}
+/*
 .divImgh3Card {
   display: flex;
   flex-direction: column;
@@ -22,37 +32,18 @@
   height: 350px;
   justify-content: space-between;
   
-  /*border: 2px solid black;*/
 }
+*/
 
-.divpbuttonCard {
+.SingleCard .content {
+  width: 100%;
   display: flex;
   justify-content: space-around;
   height: 100px;
   align-items: center;
-  text-align: center;
-  /*border: 2px solid rosybrown;*/
-  
 }
 
-.divImgh3Card img {
-  margin: 20px 0 0 0;
-  /*border: 2px solid red;*/
-  max-width: 200px;
-  max-height: 200px;
-  /*margin: 20px 0 0 0;*/
-  
-  /*background-color: var(--backgroundHard);*/
-}
-
-.divpbuttonCard p {
-  /*align-self: flex-end;*/
-  /*align-content: flex-end;*/
-  font-size: 24px;
-  /*border: 2px solid darkkhaki;*/
-}
-
-.divpbuttonCard button {
+.SingleCard .btnView {
   width: 100px;
   height: 40px;
   /*align-self: flex-end;*/

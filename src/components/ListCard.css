@@ -1,4 +1,11 @@
-.divCard {
+.divCard .Filter {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin-bottom: 20px;
+}
+
+.divCard .Products {
   margin: 0% 5%;
   display: flex;
   padding: 5px;

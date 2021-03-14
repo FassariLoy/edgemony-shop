@@ -1,70 +1,51 @@
+import { useState } from "react";
 import PropTypes from "prop-types";
+import Selection from "./Selection";
 import Card from "./Card";
 
 import './ListCard.css';
 
-function ListCard ({ serch, products, Electronics, Jewelery, MenClothing, WomenClothing, setNmProducts, ProductsCart, setProductsCart }) {
-  let aryFilter = [];
- 
-  if (Electronics) {
-    aryFilter = aryFilter.concat(products.filter((product) => product.category === "electronics"));
-  }
-   
-  if (Jewelery) {
-    aryFilter = aryFilter.concat(products.filter((product) => product.category === "jewelery"));
-  }
+function ListCard ({ products, categories, openProductModal }) {
 
-  if (MenClothing) {
-    aryFilter = aryFilter.concat(products.filter((product) => product.category === "men clothing"));
-  }
-   
-  if (WomenClothing) {
-    aryFilter = aryFilter.concat(products.filter((product) => product.category === "women clothing"));
-  } 
+  const [searchTerm, setSearchTerm] = useState();
+  const [selectedCategories, setSelectedCategories] = useState([]);
 
-  if ((!Electronics) && (!Jewelery) && (!MenClothing) && (!WomenClothing)) {
-    aryFilter = products;
-  }
-  aryFilter  = aryFilter.filter((product) => {
-    return (
-      product.title.toUpperCase().includes(serch.toUpperCase()) ||
-      product.description.toUpperCase().includes(serch.toUpperCase())
-      )
-  })
-  
-  setNmProducts(aryFilter.length);
-  
+  const termRegexp = new RegExp(searchTerm, "i");
+  const aryFilter = products.filter(
+    (product) =>
+      product.title.search(termRegexp) !== -1 &&
+      (selectedCategories.length === 0 ||
+        selectedCategories.includes(product.category))
+  );
+
   return (
     <div className="divCard">
-      {aryFilter.map((product) => {
-        return (
-          <Card
-            product={product}
-            key={product.id}
-            ProductsCart={ProductsCart}
-            setProductsCart={setProductsCart}
-          />
-        )
-        })
-      }
+      <div className="Filter">
+        <Selection 
+          setSearchTerm={setSearchTerm}
+          categories={categories}
+          selectedCategories={selectedCategories}
+          setSelectedCategories={setSelectedCategories}
+          aryFilter={aryFilter}
+        />
+      </div> 
+      <div className="Products">
+      {aryFilter.map((product) => (
+        <Card
+          product={product}
+          key={product.id}
+          openProductModal={() => openProductModal(product)}
+        />
+      ))}
+      </div>      
     </div>
   )
 }
 
 ListCard.propTypes = {
-  serch: PropTypes.string.isRequired,
-
   products: PropTypes.array.isRequired,
-  Electronics: PropTypes.bool.isRequired, 
-  Jewelery: PropTypes.bool.isRequired, 
-  MenClothing: PropTypes.bool.isRequired, 
-  WomenClothing: PropTypes.bool.isRequired, 
-
-  nmProducts: PropTypes.number.isRequired,
-  setNmProducts: PropTypes.func.isRequired,
-
-  ProductsCart: PropTypes.array.isRequired,
-  setProductsCart: PropTypes.func.isRequired,
+  categories: PropTypes.array.isRequired,
+  openProductModal: PropTypes.func.isRequired,
 };
 
 export default ListCard;

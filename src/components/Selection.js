@@ -2,41 +2,44 @@ import PropTypes from "prop-types";
 
 import './Selection.css';
   
-  function Selection ({ setSerch, Electronics, setElectronics, Jewelery, setJewelery, MenClothing, setMenClothing, WomenClothing, setWomenClothing, nmProducts }) {
+function Selection ({ setSearchTerm, categories, selectedCategories, setSelectedCategories, aryFilter }) {
 
-  const InputSerch = (evt) => {
-    setSerch(evt.target.value)
+  function className (category) {
+    return "btnCategory" + (selectedCategories.includes(category) ? " selected" : "");
   }
 
+  function toggleCategory(category) {
+    const newSelected = selectedCategories.includes(category)
+      ? selectedCategories.filter((item) => category !== item)
+      : [...selectedCategories, category];
+    return setSelectedCategories(newSelected);
+  };
+  
   return (
-    <div className="divCard">
-      <label htmlFor="serch">Serch</label>
-      <input id="serch" type="text" onChange={InputSerch} />
-      <label htmlFor="">Product: {nmProducts} </label>
+    <div className="Select">
+      <div className="SelectFilter">
+        <label htmlFor="serch">Serch</label>
+        <input id="serch" type="text" onChange={(event) => setSearchTerm(event.target.value)}/>
+      </div>
       <div>
-        <button type="button" onClick={() => setElectronics(!Electronics) } className={`${ Electronics ? `isSelect` : 'unSelect' }`}>Electronics</button>
-        <button type="button" onClick={() => setJewelery(!Jewelery) } className={`${ Jewelery ? `isSelect` : 'unSelect' }`}>Jewelery</button>
-        <button type="button" onClick={() => setMenClothing(!MenClothing) } className={`${ MenClothing ? `isSelect` : 'unSelect' }`}>Men clothing</button>
-        <button type="button" onClick={() => setWomenClothing(!WomenClothing) } className={`${ WomenClothing ? `isSelect` : 'unSelect' }`}>Women clothing</button>
+        <label className="nmProduct" htmlFor="">Product: {aryFilter.length}</label>
+      </div>
+      <div className="SelectCategories">
+        {categories.map((category) => (
+          <button key={category} className={className(category)} onClick={() => toggleCategory(category)}>{category}</button>
+        ))} 
       </div>
     </div>
   )
 }
 
 Selection.propTypes = {
-  serch: PropTypes.string.isRequired,
-  setSerch: PropTypes.func.isRequired,
-    
-  Electronics: PropTypes.bool.isRequired, 
-  setElectronics: PropTypes.func.isRequired,
-  Jewelery: PropTypes.bool.isRequired, 
-  setJewelery: PropTypes.func.isRequired,
-  MenClothing: PropTypes.bool.isRequired, 
-  setMenClothing: PropTypes.func.isRequired,
-  WomenClothing: PropTypes.bool.isRequired, 
-  setWomenClothing: PropTypes.func.isRequired,
-
-  nmProducts: PropTypes.number.isRequired,
+  setSearchTerm: PropTypes.func.isRequired,
+  categories: PropTypes.array.isRequired,
+  selectedCategories: PropTypes.array.isRequired,
+  setSelectedCategories: PropTypes.func.isRequired,
+ 
+  aryFilter: PropTypes.array.isRequired,
 };
 
 export default Selection;

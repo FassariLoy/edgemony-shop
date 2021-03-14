@@ -1,14 +1,25 @@
-.isSelect {
-  background-color: green;
+.Select {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.unSelect {
+.nmProduct {
+  margin: 0 30px;
+}
+
+
+.btnCategory {
   background-color: gray;
-}
 
-button {
   width: 130px;
   height: 40px;
   border-radius: 10px;
   margin: 5px;
+
+  cursor: pointer;
+}
+
+.selected {
+  background-color: green;
 }

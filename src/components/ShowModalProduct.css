@@ -1,0 +1,125 @@
+.ModalProduct {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+
+  /*flex-direction: column;*/
+  align-items: center;
+  justify-content: space-around;
+  pointer-events: none;
+  z-index: 10;
+
+  /*background-color: #ffffffc4;*/
+}
+
+.ModalProduct.isOpen {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.ModalProduct .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(222,222,222,0.85);
+  cursor: pointer;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 0;
+}
+
+.ModalProduct.isOpen .overlay {
+  opacity: 1;
+}
+
+.ModalProduct .body {
+  /*z-index: 10;*/
+  padding: 20px;
+  max-height: 90vh;
+  max-width: 520px;
+  /*width: 90%;*/
+  background-color: white;
+
+  opacity: 0;
+
+  /*padding: 30px;
+  border: 1px solid;
+  border-radius: 10px;*/
+}
+
+.ModalProduct.isOpen .body {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ModalProduct img {
+  width: 100%;
+  height: 300px;
+  object-fit: contain;
+  object-position: center;
+}
+
+.ModalProduct .btnClose {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.ModalProduct h3 {
+  font-size: 2rem;
+}
+
+.ModalProduct .content {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  height: 100px;
+  align-items: center;
+}
+
+.ModalProduct .btnView {
+  width: 100px;
+  height: 40px;
+  /*align-self: flex-end;*/
+  border-radius: 5px;
+  background-color: var(--backgroundHard);;
+  /*border: 2px solid coral;*/
+
+}
+/*
+.divModal .ShowCardP {
+  font-size: 1.5rem;
+}
+
+.divImgModal {
+  width: 100%;
+  
+}
+
+.divImgModal .ShowCardImg {
+  max-width: 400px;
+  max-height: 400px;
+  
+}
+
+.btnClose {
+  top: 100px;
+  left: 0px;
+
+  background-color: white;
+  color: black;
+
+  font-size: 2rem;
+}
+*/
+
+.spnPrice {
+  font-size: 2rem;
+}

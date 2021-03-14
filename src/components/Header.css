@@ -1,9 +1,20 @@
 .divHeader {
-  /*position: fixed;*/
+  /* 09.03 
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 10; */
+
+  margin-left: auto;
+  
   display: flex;
+  /*justify-content: space-between;*/
+  align-items: center;
   justify-content: space-between;
+  text-align: center;
   background-color: var(--backgroundSoft);
-  padding: 10px;
+  padding: 10px; 
 
   /*margin: 0% 5%;
   width: 90%;
@@ -11,16 +22,44 @@
   border: 2px solid red;*/
 }
 
-.divHeader img {
-  width: 300px;
+.divHeader .HeaderImg {
+  width: 200px;
 }
 
 .divHeader .divH3 {
-/*  border: 2px solid red;*/
+/*  border: 2px solid red;
   display: flex;
-  flex-direction: column;
+  flex-direction: column;*/
 }
 
-.divHeader h3 {
-  /*border: 2px solid green;*/
+.divHeader {
+  color: white;
+  margin-left: auto;
+  padding-right: 25px;
+}
+
+.divHeader .icon {
+  font-size: 1.6em;
+  position: relative;
+  margin-left: 10px;
+}
+
+.divHeader .icon :hover {
+  cursor: pointer;
+} 
+
+.divHeader .qty {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  border-radius: 50%;
+  background-color: #ccc;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  font-size: 11px;
+  font-weight: bold;
 }
