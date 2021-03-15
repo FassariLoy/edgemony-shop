@@ -4,13 +4,18 @@ import Header from "./components/Header";
 import Hero from "./components/Hero";
 
 import ListCard from "./components/ListCard";
-import ShowModalCart from "./components/ShowModalCart";
+
 import Modal from "./components/Modal";
 import ProductDetail from "./components/ProductDetail";
+import ModalSidebar from "./components/ModalSidebar";
+import Cart from "./components/Cart";
+
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
 import Error from "./components/Error";
 import { fetchProducts, fetchCategories } from "./services/api";
+
+import ShowModalCart from "./components/ShowModalCart";
 
 import "./App.css";
 
@@ -147,17 +152,20 @@ function App() {
       
       </main>
 
-      <ShowModalCart
+      <ModalSidebar 
         isOpen={isOpenCart}
-        products={cartProducts}
         closeModal={() => setIsOpenCart(false)}
-        
-        cartTotal={cartTotal}
-        removeFromCart={removeFromCart}
-        emptyCart={emptyCart}
-        setProductQuantity={setProductQuantity}
-      />
-
+        title="CART"
+      > 
+        <Cart 
+          products={cartProducts}
+          cartTotal={cartTotal}
+          removeFromCart={removeFromCart}
+          emptyCart={emptyCart}
+          setProductQuantity={setProductQuantity}
+        />  
+      </ModalSidebar>
+      
       <Modal 
         isOpen={isOpenProduct} 
         closeModal={() => setIsOpenProduct(false)}
@@ -177,5 +185,31 @@ function App() {
     </div>
   );
 }
+
+/*
+ <ShowModalCart
+        isOpen={isOpenCart}
+        products={cartProducts}
+        closeModal={() => setIsOpenCart(false)}
+        
+        cartTotal={cartTotal}
+        removeFromCart={removeFromCart}
+        emptyCart={emptyCart}
+        setProductQuantity={setProductQuantity}
+      />
+          <ModalSidebar 
+        isOpen={isOpenCart}
+        closeModal={() => setIsOpenCart(false)}
+        title="CART"
+      > 
+        <Cart 
+          products={cartProducts}
+          cartTotal={cartTotal}
+          removeFromCart={removeFromCart}
+          emptyCart={emptyCart}
+          setProductQuantity={setProductQuantity}
+        />  
+      </ModalSidebar>
+*/
 
 export default App;

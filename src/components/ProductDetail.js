@@ -21,7 +21,7 @@ function ProductDetail ({ product, inCart, addToCart, removeFromCart }) {
           <img className="Image" src={product.image} alt={product.title} /> 
           <h3 className="Title">{product.title}</h3>
           <p className="Description">{product.description}</p>
-          <div className="Content">
+          <div className="PriceAddtoCart">
             <p>Price: {formatPrice(product.price)}</p>
             <button className="addToCart" type="button" onClick={toggleCart}>
               {inCart ? "Remove to Cart -" : "Add to Cart +"}

@@ -9,7 +9,7 @@
   font-size: 2rem;
 }
 
-.Product .Content {
+.Product .PriceAddtoCart {
   width: 100%;
   display: flex;
   justify-content: space-around;
