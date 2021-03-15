@@ -4,8 +4,9 @@ import Header from "./components/Header";
 import Hero from "./components/Hero";
 
 import ListCard from "./components/ListCard";
-import ShowModalProduct from "./components/ShowModalProduct";
 import ShowModalCart from "./components/ShowModalCart";
+import Modal from "./components/Modal";
+import ProductDetail from "./components/ProductDetail";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
 import Error from "./components/Error";
@@ -156,16 +157,18 @@ function App() {
         emptyCart={emptyCart}
         setProductQuantity={setProductQuantity}
       />
-      
-      <ShowModalProduct
-        isOpen={isOpenProduct}
-        product={productInModal}
+
+      <Modal 
+        isOpen={isOpenProduct} 
         closeModal={() => setIsOpenProduct(false)}
-       
-        inCart={isInCart(productInModal)}
-        addToCart={addToCart}
-        removeFromCart={removeFromCart}
-      />
+      >
+        <ProductDetail 
+          product={productInModal} 
+          inCart={isInCart(productInModal)} 
+          addToCart={addToCart} 
+          removeFromCart={removeFromCart}
+        />  
+      </Modal>
       
       <footer>
         <Footer />

@@ -1,0 +1,57 @@
+.ModalProduct {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+
+  align-items: center;
+  justify-content: space-around;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.ModalProduct.isOpen {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.ModalProduct .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(222,222,222,0.85);
+  cursor: pointer;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 0;
+}
+
+.ModalProduct.isOpen .overlay {
+  opacity: 1;
+}
+
+.ModalProduct .body {
+  padding: 20px;
+  max-height: 90vh;
+  max-width: 520px;
+  background-color: white;
+
+  opacity: 0;
+}
+
+.ModalProduct.isOpen .body {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ModalProduct .btnClose {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  cursor: pointer;
+  font-size: 24px;
+}
