@@ -6,12 +6,13 @@ import {
 } from "react-router-dom";
 
 import Home from "./pages/Home";
+import Product from "./pages/Product";
 import Page404 from "./pages/Page404";
 
 import Header from "./components/Header";
 
-import Modal from "./components/Modal";
-import ProductDetail from "./components/ProductDetail";
+/*import Modal from "./components/Modal";*/
+/*import ProductDetail from "./components/ProductDetail";*/
 import ModalSidebar from "./components/ModalSidebar";
 import Cart from "./components/Cart";
 
@@ -37,10 +38,10 @@ const data = {
 function App() {
   // Logic
   
-  const [ productInModal, setProductInModal ] = useState({});
-  const [ isOpenProduct, setIsOpenProduct ] = useState(false);
+  /*const [ productInModal, setProductInModal ] = useState({});*/
+  /*const [ isOpenProduct, setIsOpenProduct ] = useState(false);*/
   const [ isOpenCart, setIsOpenCart ] = useState(false);
-  
+/*
   useEffect(() => {
     if (isOpenProduct || isOpenCart) {
       document.body.style.height = `100vh`;
@@ -50,10 +51,20 @@ function App() {
       document.body.style.overflow = ``;
     }
   }, [ isOpenProduct, isOpenCart ]);
+*/
+  useEffect(() => {
+    if (isOpenCart) {
+      document.body.style.height = `100vh`;
+      document.body.style.overflow = `hidden`;
+    } else {
+      document.body.style.height = ``;
+      document.body.style.overflow = ``;
+    }
+  }, [ isOpenCart ]);
 
   // Cart
   const [ ProductsCart, setProductsCart ] = useState([]);
-
+/*
   const cartProducts = ProductsCart.map((cartItem) => {
     // 16.03 products []
     const { price, image, title, id } = [].find(
@@ -61,18 +72,23 @@ function App() {
     );
     return { price, image, title, id, quantity: cartItem.quantity };
   });
-
+*/
+//16.03
+/*
   const cartTotal = cartProducts.reduce(
     (total, product) => total + product.price * product.quantity, 0);
- 
+*/
+  const cartTotal = ProductsCart.reduce(
+    (total, product) => total + product.price * product.quantity, 0);
+  
   function isInCart(product) {
     return product != null && ProductsCart.find((p) => p.id === product.id) != null;
   }
- 
-  function addToCart(productId) {
-    setProductsCart([...ProductsCart, { id: productId, quantity: 1 }]);
+
+  function addToCart(product) {
+    setProductsCart([...ProductsCart, { ...product, quantity: 1 }]);
   }
- 
+
   function removeFromCart(productId) {
     setProductsCart(ProductsCart.filter((product) => product.id !== productId));
   }
@@ -106,25 +122,13 @@ function App() {
           title="CART"
         > 
           <Cart 
-            products={cartProducts}
+            products={ProductsCart}
             cartTotal={cartTotal}
             removeFromCart={removeFromCart}
             emptyCart={emptyCart}
             setProductQuantity={setProductQuantity}
           />  
         </ModalSidebar>
-        
-        <Modal 
-          isOpen={isOpenProduct} 
-          closeModal={() => setIsOpenProduct(false)}
-        >
-          <ProductDetail 
-            product={productInModal} 
-            inCart={isInCart(productInModal)} 
-            addToCart={addToCart} 
-            removeFromCart={removeFromCart}
-          />  
-        </Modal>
         
         <footer>
           <Footer />
@@ -133,6 +137,9 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Home />
+          </Route>
+          <Route path="/product/:productId">
+            <Product isInCart={isInCart} addToCart={addToCart} removeFromCart={removeFromCart} />
           </Route>
           <Route path="*">
             <Page404 />
@@ -143,5 +150,9 @@ function App() {
     </Router>
   );
 }
+
+/*
+
+*/
 
 export default App;
