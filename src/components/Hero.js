@@ -9,8 +9,9 @@ function Hero({ cover, title, description }) {
         <h1 className="HeroH1">{title}</h1>
         <h2 className="HeroH2">{description}</h2>
       </div>
+      <img className="HeroImg" src={cover} alt={title} />
       <div className="divImgHero">
-        <img className="HeroImg" src={cover} alt={title} />
+      
       </div>
     </div>
   )

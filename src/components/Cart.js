@@ -5,7 +5,7 @@ import './Cart.css';
 function Cart ({ products, cartTotal, removeFromCart, emptyCart, setProductQuantity }) {
    
   return (
-    <div>
+    <div className="CartBody">
       <div className="ContentArticle">
         {products.map((product) => {
           return (
@@ -32,11 +32,12 @@ function Cart ({ products, cartTotal, removeFromCart, emptyCart, setProductQuant
           )}
         )}
       </div>
-
+      
       <footer className="footerCart">
         <button onClick={() => emptyCart()}>Empty Cart</button>  
-        <span>Total: {cartTotal}</span>
-      </footer>  
+        <span>Total: {formatPrice(cartTotal)}</span>
+      </footer> 
+     
     </div>
     
   );

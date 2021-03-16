@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 import { formatPrice } from "../services/utils";
 
@@ -7,15 +8,17 @@ import './Header.css'
 function Header({ logo, title, cartTotal, cartSize, onCartClick }) {
   return (
     <div className="divHeader">
-      <img className="HeaderImg" src={logo} alt={title} /> 
+      <Link to="/">
+        <img className="HeaderImg" src={logo} alt={title} /> 
+      </Link>
+
       <div>
         <span className="price">Total: {formatPrice(cartTotal)}</span>
         <span className="icon" onClick={onCartClick}> 
-        <i className="fas fa-shopping-cart"></i>
-        <span className="qty">{cartSize}</span> 
-      </span>
+          <i className="fas fa-shopping-cart"></i>
+          <span className="qty">{cartSize}</span> 
+        </span>
       </div>
-      
     </div>
   )
 }

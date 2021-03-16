@@ -1,9 +1,14 @@
 import { useState, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
+
+import Home from "./pages/Home";
+import Page404 from "./pages/Page404";
 
 import Header from "./components/Header";
-import Hero from "./components/Hero";
-
-import ListCard from "./components/ListCard";
 
 import Modal from "./components/Modal";
 import ProductDetail from "./components/ProductDetail";
@@ -11,17 +16,8 @@ import ModalSidebar from "./components/ModalSidebar";
 import Cart from "./components/Cart";
 
 import Footer from "./components/Footer";
-import Loader from "./components/Loader";
-import Error from "./components/Error";
-import { fetchProducts, fetchCategories } from "./services/api";
-
-import ShowModalCart from "./components/ShowModalCart";
 
 import "./App.css";
-
-/*const fakeProducts = require("./mocks/data/products.json");*/
-
-/*const fakeProducts = "https://fakestoreapi.com/products";*/
 
 const data = {
   title: "Edgemony Shop",
@@ -34,18 +30,17 @@ const data = {
   /*products: [],*/
 };
 
+/*const fakeProducts = require("./mocks/data/products.json");*/
+
+/*const fakeProducts = "https://fakestoreapi.com/products";*/
+
 function App() {
   // Logic
+  
   const [ productInModal, setProductInModal ] = useState({});
   const [ isOpenProduct, setIsOpenProduct ] = useState(false);
   const [ isOpenCart, setIsOpenCart ] = useState(false);
   
-  function openProductModal(product) {
-    /*console.log(product);*/
-    setProductInModal(product);
-    setIsOpenProduct(true);
-  }
-
   useEffect(() => {
     if (isOpenProduct || isOpenCart) {
       document.body.style.height = `100vh`;
@@ -56,31 +51,12 @@ function App() {
     }
   }, [ isOpenProduct, isOpenCart ]);
 
-  // API
-  const [ products, setProducts ] = useState([]);
-  const [ categories, setCategories ] = useState([]);
-  const [ isLoading, setLoading ] = useState(false);
-  const [ apiError, setApiError ] = useState("");
-  const [ retry, setRetry ] = useState(false);
-  
-  useEffect(() => {
-    setLoading(true);
-    setApiError("");
-    Promise.all([fetchProducts(), fetchCategories()])
-      .then(([products, categories]) => {
-        // 08.03 setProducts(products);*/ 
-        setProducts(products);
-        setCategories(categories);
-      })
-      .catch((err) => setApiError(err.message))
-      .finally(() => setLoading(false));
-  }, [ retry ]);
-
   // Cart
   const [ ProductsCart, setProductsCart ] = useState([]);
 
   const cartProducts = ProductsCart.map((cartItem) => {
-    const { price, image, title, id } = products.find(
+    // 16.03 products []
+    const { price, image, title, id } = [].find(
       (p) => p.id === cartItem.id
     );
     return { price, image, title, id, quantity: cartItem.quantity };
@@ -112,104 +88,60 @@ function App() {
 }
     
   return (
-    <div className="App">
-     
-      <Header 
-        logo={data.logo}
-        title={data.title} 
-        /*products={data.products}*/
-        
-        cartTotal={cartTotal}
-        cartSize={ProductsCart.length}
-        products={products}
-        onCartClick={() => ProductsCart.length !== 0 ? setIsOpenCart(true) : setIsOpenCart(false)}
-      />
-    
-      <Hero 
-        title={data.title} 
-        description={data.description} 
-        cover={data.cover} 
-      />
-        
-      <main>
-        {isLoading ? ( 
-          <Loader /> 
-        ) : apiError ? (
-          <Error 
-            messageErr={apiError}
-            closeBanner={() => setApiError("")}
-            retry={() => setRetry(!retry)}
-          /> 
-        ) : (
-          <div>
-            <ListCard 
-              products={products}
-              categories={categories}
-              openProductModal={openProductModal}
-            />
-          </div>
-        )}
+    <Router>
+      <div className="App">
       
-      </main>
-
-      <ModalSidebar 
-        isOpen={isOpenCart}
-        closeModal={() => setIsOpenCart(false)}
-        title="CART"
-      > 
-        <Cart 
-          products={cartProducts}
+        <Header 
+          logo={data.logo}
+          title={data.title} 
+          
           cartTotal={cartTotal}
-          removeFromCart={removeFromCart}
-          emptyCart={emptyCart}
-          setProductQuantity={setProductQuantity}
-        />  
-      </ModalSidebar>
+          cartSize={ProductsCart.length}
+          onCartClick={() => ProductsCart.length !== 0 ? setIsOpenCart(true) : setIsOpenCart(false)}
+        />
+
+        <ModalSidebar 
+          isOpen={isOpenCart}
+          closeModal={() => setIsOpenCart(false)}
+          title="CART"
+        > 
+          <Cart 
+            products={cartProducts}
+            cartTotal={cartTotal}
+            removeFromCart={removeFromCart}
+            emptyCart={emptyCart}
+            setProductQuantity={setProductQuantity}
+          />  
+        </ModalSidebar>
+        
+        <Modal 
+          isOpen={isOpenProduct} 
+          closeModal={() => setIsOpenProduct(false)}
+        >
+          <ProductDetail 
+            product={productInModal} 
+            inCart={isInCart(productInModal)} 
+            addToCart={addToCart} 
+            removeFromCart={removeFromCart}
+          />  
+        </Modal>
+        
+        <footer>
+          <Footer />
+        </footer>
+
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="*">
+            <Page404 />
+          </Route>
+        </Switch>
       
-      <Modal 
-        isOpen={isOpenProduct} 
-        closeModal={() => setIsOpenProduct(false)}
-      >
-        <ProductDetail 
-          product={productInModal} 
-          inCart={isInCart(productInModal)} 
-          addToCart={addToCart} 
-          removeFromCart={removeFromCart}
-        />  
-      </Modal>
-      
-      <footer>
-        <Footer />
-      </footer>
-    
-    </div>
+      </div>
+    </Router>
   );
 }
-
-/*
- <ShowModalCart
-        isOpen={isOpenCart}
-        products={cartProducts}
-        closeModal={() => setIsOpenCart(false)}
-        
-        cartTotal={cartTotal}
-        removeFromCart={removeFromCart}
-        emptyCart={emptyCart}
-        setProductQuantity={setProductQuantity}
-      />
-          <ModalSidebar 
-        isOpen={isOpenCart}
-        closeModal={() => setIsOpenCart(false)}
-        title="CART"
-      > 
-        <Cart 
-          products={cartProducts}
-          cartTotal={cartTotal}
-          removeFromCart={removeFromCart}
-          emptyCart={emptyCart}
-          setProductQuantity={setProductQuantity}
-        />  
-      </ModalSidebar>
-*/
 
 export default App;

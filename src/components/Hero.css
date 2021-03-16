@@ -1,5 +1,5 @@
 .divHero {
-  margin: 0% 5%;
+  margin: 3%;
   width: 90%;
   position: relative;
 /*  border: 2px solid red;*/
@@ -33,9 +33,12 @@
   
 }
 
-.divImgHero .HeroImg {
+.HeroImg {
   /*position: absolute;*/
+  max-height: 100%;
   max-width: 100%;
+  object-fit: cover;
+  object-position: center;
   border-radius: 10px;
 
   /*size: 100%;*/
