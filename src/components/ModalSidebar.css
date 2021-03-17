@@ -39,7 +39,6 @@
   top: 0;
   right: 0;
   bottom: 0;
-  width: 100%;
   padding: 20px;
   max-height: 95vh;
   /*max-width: 520px;*/
@@ -58,6 +57,7 @@
 .ModalCart .headerCart {
   /*position: absolute;*/
   /*top: 50px;*/
+  border-radius: 10px;
   height: 50px;
   width: 100%;
   text-align: center;
@@ -68,8 +68,10 @@
   position: absolute;
   top: 50px;
   left: 30px;
-  border-radius: 5px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
   cursor: pointer;
-  font-size: 24px;
+  font-size: 18px;
   z-index: 10;
 }

@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import { formatPrice } from "../services/utils";
-import './Cart.css';
 
-function Cart ({ products, cartTotal, removeFromCart, emptyCart, setProductQuantity }) {
-   
+import './CartItems.css'
+
+function CartItems ({ products, cartTotal, removeFromCart, emptyCart, setProductQuantity }) {
   return (
     <div className="CartBody">
       <div className="ContentArticle">
@@ -39,11 +39,10 @@ function Cart ({ products, cartTotal, removeFromCart, emptyCart, setProductQuant
       </footer> 
      
     </div>
-    
-  );
+  )
 }
 
-Cart.propTypes = {
+CartItems.propTypes = {
   products: PropTypes.array.isRequired,
   cartTotal: PropTypes.number.isRequired,
   removeFromCart: PropTypes.func.isRequired,
@@ -51,4 +50,4 @@ Cart.propTypes = {
   setProductQuantity: PropTypes.func.isRequired,
 };
 
-export default Cart;
+export default CartItems;
