@@ -1,4 +1,4 @@
-import { useState } from "react";
+//import { useState } from "react";
 import { useLocation, useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import Selection from "./Selection";
@@ -8,26 +8,38 @@ import './ListCard.css';
 
 function ListCard ({ products, categories }) {
   //const [ searchTerm, setSearchTerm ] = useState();
-  const [ selectedCategories, setSelectedCategories ] = useState([]);
+  //const [ selectedCategories, setSelectedCategories ] = useState([]);
 
   const location = useLocation();
   const history = useHistory();
 
-  console.log("location:", location)
-  
   const searchParams = new URLSearchParams(location.search);
 
   const searchTerm = searchParams.get("q") || "";
 
-  function updateSearchTerm(Term) {
-    //setSearchTerm(Term)
-    if (Term === "") {
+  function updateSearchTerm(term) {
+    if (term === "") {
       searchParams.delete("q");
     } else {
-      searchParams.set("q", Term)
+      searchParams.set("q", term)
     }
     history.push({ search: "?" + searchParams.toString() })
-    //console.log("location 2:", location)
+  }
+
+  const selecttedCategoriesParam = searchParams.get("categories");
+  const selectedCategories = selecttedCategoriesParam
+    ? selecttedCategoriesParam.split(",")
+    : [];
+
+  function updateCategories(categories) {
+    //setSelectedCategories(categories);
+    const selectedParam = categories.join(",");
+    if (categories.length === 0) {
+      searchParams.delete("categories");
+    } else {
+      searchParams.set("categories", selectedParam)
+    }
+    history.push({ search: "?" + searchParams.toString() })
   }
 
   const termRegexp = new RegExp(searchTerm, "i");
@@ -42,11 +54,12 @@ function ListCard ({ products, categories }) {
     <div className="divCard">
       <div className="Filter">
         <Selection 
+          term={searchTerm}
           setSearchTerm={updateSearchTerm}
           
           categories={categories}
           selectedCategories={selectedCategories}
-          setSelectedCategories={setSelectedCategories}
+          setSelectedCategories={updateCategories}
           aryFilter={aryFilter}
         />
       </div> 

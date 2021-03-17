@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 import './Selection.css';
   
-function Selection ({ setSearchTerm, categories, selectedCategories, setSelectedCategories, aryFilter }) {
+function Selection ({ term, setSearchTerm, categories, selectedCategories, setSelectedCategories, aryFilter }) {
 
   function className (category) {
     return "btnCategory" + (selectedCategories.includes(category) ? " selected" : "");
@@ -18,8 +18,8 @@ function Selection ({ setSearchTerm, categories, selectedCategories, setSelected
   return (
     <div className="Select">
       <div className="SelectFilter">
-        <label htmlFor="search">Serch</label>
-        <input id="search" type="text" onChange={(event) => setSearchTerm(event.target.value)}/>
+        <label htmlFor="search">Serch  </label>
+        <input id="search" type="text" value={term} onChange={(event) => setSearchTerm(event.target.value)}/>
       </div>
       <div>
         <label className="nmProduct" htmlFor="">Product: {aryFilter.length}</label>
@@ -34,6 +34,7 @@ function Selection ({ setSearchTerm, categories, selectedCategories, setSelected
 }
 
 Selection.propTypes = {
+  term: PropTypes.string.isRequired,
   setSearchTerm: PropTypes.func.isRequired,
   categories: PropTypes.array.isRequired,
   selectedCategories: PropTypes.array.isRequired,
