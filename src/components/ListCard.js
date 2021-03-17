@@ -5,7 +5,7 @@ import Card from "./Card";
 
 import './ListCard.css';
 
-function ListCard ({ products, categories, openProductModal }) {
+function ListCard ({ products, categories }) {
 
   const [searchTerm, setSearchTerm] = useState();
   const [selectedCategories, setSelectedCategories] = useState([]);
