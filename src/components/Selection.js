@@ -18,8 +18,8 @@ function Selection ({ setSearchTerm, categories, selectedCategories, setSelected
   return (
     <div className="Select">
       <div className="SelectFilter">
-        <label htmlFor="serch">Serch</label>
-        <input id="serch" type="text" onChange={(event) => setSearchTerm(event.target.value)}/>
+        <label htmlFor="search">Serch</label>
+        <input id="search" type="text" onChange={(event) => setSearchTerm(event.target.value)}/>
       </div>
       <div>
         <label className="nmProduct" htmlFor="">Product: {aryFilter.length}</label>
