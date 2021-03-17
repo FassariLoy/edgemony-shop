@@ -18,6 +18,8 @@ const data = {
   /*products: [],*/
 };
 
+let cache;
+
 function Home () {
   const [ products, setProducts ] = useState([]);
   const [ categories, setCategories ] = useState([]);

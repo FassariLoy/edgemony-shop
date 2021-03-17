@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 
 import Home from "./pages/Home";
+import CartItems from "./pages/CartItems";
 import Product from "./pages/Product";
 import Page404 from "./pages/Page404";
 
@@ -13,8 +14,8 @@ import Header from "./components/Header";
 
 /*import Modal from "./components/Modal";*/
 /*import ProductDetail from "./components/ProductDetail";*/
-import ModalSidebar from "./components/ModalSidebar";
-import Cart from "./components/Cart";
+/*import ModalSidebar from "./components/ModalSidebar";*/
+/*import Cart from "./components/Cart";*/
 
 import Footer from "./components/Footer";
 
@@ -40,7 +41,7 @@ function App() {
   
   /*const [ productInModal, setProductInModal ] = useState({});*/
   /*const [ isOpenProduct, setIsOpenProduct ] = useState(false);*/
-  const [ isOpenCart, setIsOpenCart ] = useState(false);
+  /*const [ isOpenCart, setIsOpenCart ] = useState(false);*/
 /*
   useEffect(() => {
     if (isOpenProduct || isOpenCart) {
@@ -52,6 +53,7 @@ function App() {
     }
   }, [ isOpenProduct, isOpenCart ]);
 */
+/*
   useEffect(() => {
     if (isOpenCart) {
       document.body.style.height = `100vh`;
@@ -61,7 +63,7 @@ function App() {
       document.body.style.overflow = ``;
     }
   }, [ isOpenCart ]);
-
+*/
   // Cart
   const [ ProductsCart, setProductsCart ] = useState([]);
 /*
@@ -113,23 +115,9 @@ function App() {
           
           cartTotal={cartTotal}
           cartSize={ProductsCart.length}
-          onCartClick={() => ProductsCart.length !== 0 ? setIsOpenCart(true) : setIsOpenCart(false)}
+          
         />
-
-        <ModalSidebar 
-          isOpen={isOpenCart}
-          closeModal={() => setIsOpenCart(false)}
-          title="CART"
-        > 
-          <Cart 
-            products={ProductsCart}
-            cartTotal={cartTotal}
-            removeFromCart={removeFromCart}
-            emptyCart={emptyCart}
-            setProductQuantity={setProductQuantity}
-          />  
-        </ModalSidebar>
-        
+       
         <footer>
           <Footer />
         </footer>
@@ -138,8 +126,21 @@ function App() {
           <Route exact path="/">
             <Home />
           </Route>
+          <Route path="/cartitems">
+            <CartItems  
+              products={ProductsCart}
+              cartTotal={cartTotal}
+              removeFromCart={removeFromCart}
+              emptyCart={emptyCart}
+              setProductQuantity={setProductQuantity}
+            />  
+          </Route>
           <Route path="/product/:productId">
-            <Product isInCart={isInCart} addToCart={addToCart} removeFromCart={removeFromCart} />
+            <Product 
+              isInCart={isInCart} 
+              addToCart={addToCart} 
+              removeFromCart={removeFromCart} 
+            />
           </Route>
           <Route path="*">
             <Page404 />
@@ -152,7 +153,7 @@ function App() {
 }
 
 /*
-
+onCartClick={() => ProductsCart.length !== 0 ? setIsOpenCart(true) : setIsOpenCart(false)}
 */
 
 export default App;

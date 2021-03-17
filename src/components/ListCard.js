@@ -34,7 +34,7 @@ function ListCard ({ products, categories, openProductModal }) {
         <Card
           product={product}
           key={product.id}
-          openProductModal={() => openProductModal(product)}
+          
         />
       ))}
       </div>      
@@ -45,7 +45,7 @@ function ListCard ({ products, categories, openProductModal }) {
 ListCard.propTypes = {
   products: PropTypes.array.isRequired,
   categories: PropTypes.array.isRequired,
-  openProductModal: PropTypes.func.isRequired,
+  
 };
 
 export default ListCard;

@@ -9,6 +9,8 @@ import PropTypes from "prop-types";
 
 import { formatPrice } from "../services/utils";
 
+import "./Product.css";
+
 function Product ({ isInCart, addToCart, removeFromCart }) {
   let { productId } = useParams();
 
