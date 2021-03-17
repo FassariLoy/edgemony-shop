@@ -21,24 +21,28 @@ const data = {
 let cache;
 
 function Home () {
-  const [ products, setProducts ] = useState([]);
-  const [ categories, setCategories ] = useState([]);
+  const [ products, setProducts ] = useState(cache ? cache.products : []);
+  const [ categories, setCategories ] = useState(cache ? cache.categories : []);
   const [ isLoading, setLoading ] = useState(false);
   const [ apiError, setApiError ] = useState("");
   const [ retry, setRetry ] = useState(false);
 
-  function openProductModal(product) {
+  /*function openProductModal(product) {
     // 16.03 setProductInModal(product);
     // 16.03 setIsOpenProduct(true);
   }
-  
+  */
+ 
   useEffect(() => {
+    if (cache !== undefined) 
+      return
     setLoading(true);
     setApiError("");
     Promise.all([fetchProducts(), fetchCategories()])
       .then(([products, categories]) => {
         setProducts(products);
         setCategories(categories);
+        cache = { products, categories }
       })
       .catch((err) => setApiError(err.message))
       .finally(() => setLoading(false));
@@ -66,7 +70,7 @@ function Home () {
             <ListCard 
               products={products}
               categories={categories}
-              openProductModal={openProductModal}
+              
             />
           </div>
         )}
