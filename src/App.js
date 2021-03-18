@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
 } from "react-router-dom";
+
+import { postItemToCart, deleteItemFromCart, fetchCart } from './services/api'
 
 import Home from "./pages/Home";
 import CartItems from "./pages/CartItems";
@@ -17,9 +19,14 @@ import Header from "./components/Header";
 /*import ModalSidebar from "./components/ModalSidebar";*/
 /*import Cart from "./components/Cart";*/
 
+import Loader from "./components/Loader";
+import Error from "./components/Error";
+
 import Footer from "./components/Footer";
 
 import "./App.css";
+
+let cartId;
 
 const data = {
   title: "Edgemony Shop",
@@ -33,7 +40,6 @@ const data = {
 };
 
 /*const fakeProducts = require("./mocks/data/products.json");*/
-
 /*const fakeProducts = "https://fakestoreapi.com/products";*/
 
 function App() {
@@ -66,6 +72,10 @@ function App() {
 */
   // Cart
   const [ ProductsCart, setProductsCart ] = useState([]);
+
+  const [ isLoading, setLoading ] = useState(false);
+  const [ apiError, setApiError ] = useState("");
+  const [ retry, setRetry ] = useState(false);
 /*
   const cartProducts = ProductsCart.map((cartItem) => {
     // 16.03 products []
@@ -75,11 +85,6 @@ function App() {
     return { price, image, title, id, quantity: cartItem.quantity };
   });
 */
-//16.03
-/*
-  const cartTotal = cartProducts.reduce(
-    (total, product) => total + product.price * product.quantity, 0);
-*/
   const cartTotal = ProductsCart.reduce(
     (total, product) => total + product.price * product.quantity, 0);
   
@@ -87,6 +92,7 @@ function App() {
     return product != null && ProductsCart.find((p) => p.id === product.id) != null;
   }
 
+/*
   function addToCart(product) {
     setProductsCart([...ProductsCart, { ...product, quantity: 1 }]);
   }
@@ -94,17 +100,60 @@ function App() {
   function removeFromCart(productId) {
     setProductsCart(ProductsCart.filter((product) => product.id !== productId));
   }
+*/
+  async function updateCart(fn, ...apiParams) {
+    try {
+      const cartObj = await fn(...apiParams)
+      setProductsCart(cartObj.items);        
+    } catch (error) {
+      console.error(`${fn.name} API call response error! ${error.message}`)
+    }
+  }
+  function addToCart(productId) {
+    updateCart(postItemToCart, cartId, productId, 1)
+  }
+  function removeFromCart(productId) {
+    updateCart(deleteItemFromCart, cartId, productId)
+  }
+  function setProductQuantity(productId, quantity) {
+    updateCart(postItemToCart, cartId, productId, quantity)
+  }
+
+  // Initial cart fetch from API
+  useEffect(() => {
+    const cartIdFromLocalStorage = localStorage.getItem('edgemony-cart-id')
+    // We fetch only of we have a Cart ID available
+    if (cartIdFromLocalStorage) {
+      setLoading(true);
+      setApiError("");
+      async function fetchCartInEffect() {
+        try {
+          const cartObj = await fetchCart(cartIdFromLocalStorage)
+          setProductsCart(cartObj.items)
+          cartId = cartObj.id
+          setLoading(false);
+        } catch (error) {
+          //console.error('fetchCart API call response error! ', error.message)
+          setLoading(false);
+          setApiError(error.message)
+        }
+      }
+      fetchCartInEffect()
+    }
+  }, [ retry ])
 
   const emptyCart = () => setProductsCart([]);
-  
+ 
+  /*
   function setProductQuantity(productId, quantity) {
     setProductsCart(
       ProductsCart.map((product) =>
       product.id === productId ? { ...product, quantity } : product
-    )
-  );
-}
-    
+      )
+    );  
+  }
+  */
+
   return (
     <Router>
       <div className="App">
@@ -115,12 +164,18 @@ function App() {
           
           cartTotal={cartTotal}
           cartSize={ProductsCart.length}
-          
         />
-       
-        <footer>
-          <Footer />
-        </footer>
+      
+        {isLoading 
+        ? <Loader /> 
+        : apiError 
+        ? <Error 
+            messageErr={apiError}
+            closeBanner={() => setApiError("")}
+            retry={() => setRetry(!retry)}
+          /> 
+        : ("")
+        }
 
         <Switch>
           <Route exact path="/">
@@ -144,9 +199,13 @@ function App() {
           </Route>
           <Route path="*">
             <Page404 />
-          </Route>
+          </Route> 
         </Switch>
-      
+        
+        <footer>
+          <Footer />
+        </footer>
+
       </div>
     </Router>
   );

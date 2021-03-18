@@ -5,7 +5,8 @@ import { formatPrice } from "../services/utils";
 
 import './Header.css'
 
-function Header({ logo, title, cartTotal, cartSize, onCartClick }) {
+function Header({ logo, title, cartTotal, cartSize }) {
+
   return (
     <div className="divHeader">
       <Link to="/">
@@ -19,7 +20,7 @@ function Header({ logo, title, cartTotal, cartSize, onCartClick }) {
           <Link to="/cartitems">
             <i className="fas fa-shopping-cart"></i>
             <span className="qty">{cartSize}</span> 
-          </Link>
+          </ Link>
         </span>
        
       </div>
