@@ -19,6 +19,9 @@ import Header from "./components/Header";
 /*import ModalSidebar from "./components/ModalSidebar";*/
 /*import Cart from "./components/Cart";*/
 
+import Loader from "./components/Loader";
+import Error from "./components/Error";
+
 import Footer from "./components/Footer";
 
 import "./App.css";
@@ -69,6 +72,10 @@ function App() {
 */
   // Cart
   const [ ProductsCart, setProductsCart ] = useState([]);
+
+  const [ isLoading, setLoading ] = useState(false);
+  const [ apiError, setApiError ] = useState("");
+  const [ retry, setRetry ] = useState(false);
 /*
   const cartProducts = ProductsCart.map((cartItem) => {
     // 16.03 products []
@@ -77,11 +84,6 @@ function App() {
     );
     return { price, image, title, id, quantity: cartItem.quantity };
   });
-*/
-//16.03
-/*
-  const cartTotal = cartProducts.reduce(
-    (total, product) => total + product.price * product.quantity, 0);
 */
   const cartTotal = ProductsCart.reduce(
     (total, product) => total + product.price * product.quantity, 0);
@@ -122,18 +124,23 @@ function App() {
     const cartIdFromLocalStorage = localStorage.getItem('edgemony-cart-id')
     // We fetch only of we have a Cart ID available
     if (cartIdFromLocalStorage) {
+      setLoading(true);
+      setApiError("");
       async function fetchCartInEffect() {
         try {
           const cartObj = await fetchCart(cartIdFromLocalStorage)
           setProductsCart(cartObj.items)
-            cartId = cartObj.id
+          cartId = cartObj.id
+          setLoading(false);
         } catch (error) {
-          console.error('fetchCart API call response error! ', error.message)
+          //console.error('fetchCart API call response error! ', error.message)
+          setLoading(false);
+          setApiError(error.message)
         }
       }
       fetchCartInEffect()
     }
-  }, [])
+  }, [ retry ])
 
   const emptyCart = () => setProductsCart([]);
  
@@ -158,10 +165,17 @@ function App() {
           cartTotal={cartTotal}
           cartSize={ProductsCart.length}
         />
-       
-        <footer>
-          <Footer />
-        </footer>
+      
+        {isLoading 
+        ? <Loader /> 
+        : apiError 
+        ? <Error 
+            messageErr={apiError}
+            closeBanner={() => setApiError("")}
+            retry={() => setRetry(!retry)}
+          /> 
+        : ("")
+        }
 
         <Switch>
           <Route exact path="/">
@@ -185,9 +199,13 @@ function App() {
           </Route>
           <Route path="*">
             <Page404 />
-          </Route>
+          </Route> 
         </Switch>
-      
+        
+        <footer>
+          <Footer />
+        </footer>
+
       </div>
     </Router>
   );

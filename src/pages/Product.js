@@ -50,7 +50,10 @@ function Product ({ isInCart, addToCart, removeFromCart }) {
         /> 
       ) : (
         <div className="Product">
-          <img className="Image" src={product.image} alt={product.title} /> 
+          <div className="WrapperImage">
+            <img className="Image" src={product.image} alt={product.title} /> 
+          </div>
+          
           <h3 className="Title">{product.title}</h3>
           <p className="Description">{product.description}</p>
           <div className="PriceAddtoCart">
