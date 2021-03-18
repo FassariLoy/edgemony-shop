@@ -34,7 +34,7 @@ function Product ({ isInCart, addToCart, removeFromCart }) {
     if (isInCart(product)) {
       removeFromCart(product.id);
     } else {
-      addToCart(product);
+      addToCart(product.id);
     }
   };
   

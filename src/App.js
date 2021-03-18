@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
 } from "react-router-dom";
+
+import { postItemToCart, deleteItemFromCart, fetchCart } from './services/api'
 
 import Home from "./pages/Home";
 import CartItems from "./pages/CartItems";
@@ -21,6 +23,8 @@ import Footer from "./components/Footer";
 
 import "./App.css";
 
+let cartId;
+
 const data = {
   title: "Edgemony Shop",
   description: "A fake e-commerce with a lot of potential",
@@ -33,7 +37,6 @@ const data = {
 };
 
 /*const fakeProducts = require("./mocks/data/products.json");*/
-
 /*const fakeProducts = "https://fakestoreapi.com/products";*/
 
 function App() {
@@ -87,6 +90,7 @@ function App() {
     return product != null && ProductsCart.find((p) => p.id === product.id) != null;
   }
 
+/*
   function addToCart(product) {
     setProductsCart([...ProductsCart, { ...product, quantity: 1 }]);
   }
@@ -94,17 +98,55 @@ function App() {
   function removeFromCart(productId) {
     setProductsCart(ProductsCart.filter((product) => product.id !== productId));
   }
+*/
+  async function updateCart(fn, ...apiParams) {
+    try {
+      const cartObj = await fn(...apiParams)
+      setProductsCart(cartObj.items);        
+    } catch (error) {
+      console.error(`${fn.name} API call response error! ${error.message}`)
+    }
+  }
+  function addToCart(productId) {
+    updateCart(postItemToCart, cartId, productId, 1)
+  }
+  function removeFromCart(productId) {
+    updateCart(deleteItemFromCart, cartId, productId)
+  }
+  function setProductQuantity(productId, quantity) {
+    updateCart(postItemToCart, cartId, productId, quantity)
+  }
+
+  // Initial cart fetch from API
+  useEffect(() => {
+    const cartIdFromLocalStorage = localStorage.getItem('edgemony-cart-id')
+    // We fetch only of we have a Cart ID available
+    if (cartIdFromLocalStorage) {
+      async function fetchCartInEffect() {
+        try {
+          const cartObj = await fetchCart(cartIdFromLocalStorage)
+          setProductsCart(cartObj.items)
+            cartId = cartObj.id
+        } catch (error) {
+          console.error('fetchCart API call response error! ', error.message)
+        }
+      }
+      fetchCartInEffect()
+    }
+  }, [])
 
   const emptyCart = () => setProductsCart([]);
-  
+ 
+  /*
   function setProductQuantity(productId, quantity) {
     setProductsCart(
       ProductsCart.map((product) =>
       product.id === productId ? { ...product, quantity } : product
-    )
-  );
-}
-    
+      )
+    );  
+  }
+  */
+
   return (
     <Router>
       <div className="App">
@@ -115,7 +157,6 @@ function App() {
           
           cartTotal={cartTotal}
           cartSize={ProductsCart.length}
-          
         />
        
         <footer>

@@ -18,7 +18,7 @@ function Selection ({ term, setSearchTerm, categories, selectedCategories, setSe
   return (
     <div className="Select">
       <div className="SelectFilter">
-        <label htmlFor="search">Serch  </label>
+        <label htmlFor="search">Search  </label>
         <input id="search" type="text" value={term} onChange={(event) => setSearchTerm(event.target.value)}/>
       </div>
       <div>
